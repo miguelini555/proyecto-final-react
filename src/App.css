@@ -7,7 +7,6 @@
         Arial,
         Helvetica,
         sans-serif;
-
     color: #172033;
     background: #dfe8e2;
 }
@@ -27,13 +26,10 @@ button {
 
 .pantalla-inicio {
     min-height: 100vh;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     padding: 2rem;
-
     background:
         linear-gradient(
             135deg,
@@ -42,71 +38,50 @@ button {
         );
 
     position: relative;
-
     overflow: hidden;
 }
 
 .pantalla-inicio::before {
     content: "";
-
     position: absolute;
-
     width: 500px;
     height: 500px;
-
     border-radius: 50%;
-
     background: #c8d8cd;
-
     top: -200px;
     left: -180px;
-
     opacity: 0.5;
 }
 
 .pantalla-inicio::after {
     content: "";
-
     position: absolute;
-
     width: 600px;
     height: 600px;
-
     border-radius: 50%;
-
     background: #e9d4b7;
-
     bottom: -300px;
     right: -200px;
-
     opacity: 0.5;
 }
 
 .contenido-inicio {
     position: relative;
-
     z-index: 2;
-
     width: min(
         720px,
         100%
     );
-
     padding: 3rem;
-
     text-align: center;
-
     background: rgba(
         255,
         255,
         255,
         0.9
     );
-
     border: 3px solid #2d4a3e;
-
     border-radius: 24px;
-
     box-shadow:
         0 20px 60px
         rgba(25, 45, 35, 0.2);
@@ -114,97 +89,67 @@ button {
 
 .decoracion-tren {
     position: absolute;
-
     top: 30px;
     left: 0;
-
     width: 100%;
-
     text-align: center;
-
     font-size: 1.6rem;
-
     opacity: 0.35;
 }
 
 .titulo-icono {
     font-size: 4rem;
-
     margin-bottom: 1rem;
 }
 
 .contenido-inicio h1 {
     margin: 0;
-
     font-size: clamp(
         2.5rem,
         7vw,
         5rem
     );
-
     line-height: 0.95;
-
     color: #243c32;
-
     text-transform: uppercase;
-
     letter-spacing: -2px;
 }
 
 .contenido-inicio h1 span {
     display: block;
-
     color: #a35332;
 }
 
 .subtitulo-inicio {
     margin: 1.5rem auto;
-
     max-width: 520px;
-
     font-size: 1.2rem;
-
     line-height: 1.6;
-
     color: #56645c;
 }
 
 .ruta-inicio {
     display: flex;
-
     justify-content: center;
     align-items: center;
-
     gap: 1rem;
-
     margin: 2rem 0;
-
     font-weight: bold;
-
     color: #344e41;
 }
 
 .boton-inicio,
 .boton-principal {
     border: none;
-
     padding: 1rem 2rem;
-
     border-radius: 12px;
-
     background: #a35332;
-
     color: white;
-
     font-weight: bold;
-
     font-size: 1rem;
-
     cursor: pointer;
-
     box-shadow:
         0 6px 0 #713820;
-
     transition:
         transform 0.15s,
         box-shadow 0.15s;
@@ -213,7 +158,6 @@ button {
 .boton-inicio:hover,
 .boton-principal:hover {
     transform: translateY(-2px);
-
     box-shadow:
         0 8px 0 #713820;
 }
@@ -221,16 +165,13 @@ button {
 .boton-inicio:active,
 .boton-principal:active {
     transform: translateY(4px);
-
     box-shadow:
         0 2px 0 #713820;
 }
 
 .texto-jugadores {
     margin-top: 2rem;
-
     color: #65746b;
-
     font-weight: bold;
 }
 
@@ -240,9 +181,7 @@ button {
 
 .pantalla-juego {
     min-height: 100vh;
-
     padding: 1.5rem;
-
     background:
         linear-gradient(
             135deg,
@@ -257,25 +196,15 @@ button {
 
 .encabezado-juego {
     max-width: 1400px;
-
     margin: 0 auto 1.5rem;
-
     padding: 1.3rem 1.5rem;
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     gap: 1rem;
-
     background: #243c32;
-
     color: white;
-
     border-radius: 18px;
-
     box-shadow:
         0 10px 30px
         rgba(30, 50, 40, 0.2);
@@ -283,17 +212,13 @@ button {
 
 .encabezado-pequeno {
     margin: 0 0 0.25rem;
-
     font-size: 0.75rem;
-
     letter-spacing: 2px;
-
     opacity: 0.7;
 }
 
 .encabezado-juego h1 {
     margin: 0;
-
     font-size: clamp(
         1.5rem,
         4vw,
@@ -303,37 +228,27 @@ button {
 
 .encabezado-juego p {
     margin: 0.3rem 0 0;
-
     opacity: 0.75;
 }
 
 .estado-turno {
     min-width: 190px;
-
     padding: 1rem;
-
     border-radius: 12px;
-
     background: #365847;
-
     text-align: center;
 }
 
 .estado-turno span {
     display: block;
-
     font-size: 0.75rem;
-
     letter-spacing: 1px;
-
     opacity: 0.7;
 }
 
 .estado-turno strong {
     display: block;
-
     margin-top: 0.3rem;
-
     font-size: 1rem;
 }
 
@@ -343,15 +258,11 @@ button {
 
 .tablero {
     max-width: 1400px;
-
     margin: 0 auto;
-
     display: grid;
-
     grid-template-columns:
         minmax(260px, 0.75fr)
         minmax(600px, 2fr);
-
     gap: 1.5rem;
 }
 
@@ -361,25 +272,18 @@ button {
 
 .panel-jugadores {
     display: flex;
-
     flex-direction: column;
-
     gap: 1rem;
 }
 
 .panel-jugador {
     padding: 1.2rem;
-
     background: white;
-
     border: 2px solid #c8d2ca;
-
     border-radius: 18px;
-
     box-shadow:
         0 8px 25px
         rgba(35, 55, 45, 0.1);
-
     transition:
         transform 0.2s,
         border-color 0.2s;
@@ -387,9 +291,7 @@ button {
 
 .panel-jugador.jugador-activo {
     border-color: #a35332;
-
     transform: translateY(-3px);
-
     box-shadow:
         0 10px 30px
         rgba(163, 83, 50, 0.18);
@@ -397,66 +299,46 @@ button {
 
 .jugador-cabecera {
     display: flex;
-
     align-items: center;
-
     gap: 1rem;
-
     margin-bottom: 1rem;
 }
 
 .personaje {
     width: 70px;
     height: 70px;
-
     display: grid;
-
     place-items: center;
-
     font-size: 3rem;
-
     background: #eef2ed;
-
     border-radius: 50%;
-
     border: 3px solid #d3ddd5;
 }
 
 .panel-jugador h2 {
     margin: 0;
-
     font-size: 1.3rem;
 }
 
 .estado-jugador {
     display: inline-block;
-
     margin-top: 0.3rem;
-
     font-size: 0.8rem;
-
     color: #718077;
 }
 
 .jugador-activo .estado-jugador {
     color: #a35332;
-
     font-weight: bold;
 }
 
 .estacion-actual {
     display: flex;
-
     align-items: center;
-
     gap: 0.7rem;
-
     padding: 0.8rem;
-
     margin-bottom: 1rem;
-
     border-radius: 10px;
-
     background: #f1f5f1;
 }
 
@@ -467,40 +349,29 @@ button {
 .estacion-actual small,
 .recurso small {
     display: block;
-
     font-size: 0.65rem;
-
     color: #7a877e;
-
     text-transform: uppercase;
 }
 
 .estacion-actual strong {
     display: block;
-
     margin-top: 0.15rem;
 }
 
 .recursos {
     display: grid;
-
     grid-template-columns:
         1fr 1fr;
-
     gap: 0.6rem;
 }
 
 .recurso {
     display: flex;
-
     align-items: center;
-
     gap: 0.5rem;
-
     padding: 0.65rem;
-
     background: #f7f8f6;
-
     border-radius: 10px;
 }
 
@@ -518,31 +389,21 @@ button {
 
 .zona-ruta {
     position: relative;
-
     min-width: 0;
-
     padding: 1.5rem;
-
     background: #fafbf9;
-
     border: 2px solid #c8d2ca;
-
     border-radius: 18px;
-
     box-shadow:
         0 8px 25px
         rgba(35, 55, 45, 0.1);
-
     overflow: hidden;
 }
 
 .titulo-ruta {
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     margin-bottom: 3rem;
 }
 
@@ -550,19 +411,14 @@ button {
 .titulo-control span,
 .panel-evento > div > span {
     font-size: 0.7rem;
-
     font-weight: bold;
-
     letter-spacing: 2px;
-
     color: #a35332;
 }
 
 .titulo-ruta h2 {
     margin: 0.3rem 0 0;
-
     color: #243c32;
-
     font-size: 1.7rem;
 }
 
@@ -576,14 +432,10 @@ button {
 
 .ruta {
     position: relative;
-
     display: grid;
-
     grid-template-columns:
         repeat(10, minmax(85px, 1fr));
-
     min-width: 900px;
-
     padding:
         2rem
         1rem
@@ -596,26 +448,18 @@ button {
 
 .linea-ferroviaria {
     position: absolute;
-
     left: 4%;
-
     right: 4%;
-
     top: 74px;
-
     height: 12px;
-
     background:
         repeating-linear-gradient(
             90deg,
             #59655e 0 18px,
             transparent 18px 28px
         );
-
     border-top: 4px solid #303a35;
-
     border-bottom: 4px solid #303a35;
-
     z-index: 0;
 }
 
@@ -625,16 +469,11 @@ button {
 
 .linea-ferroviaria::before {
     content: "";
-
     position: absolute;
-
     left: 0;
     right: 0;
-
     top: -8px;
-
     height: 20px;
-
     background:
         repeating-linear-gradient(
             90deg,
@@ -642,67 +481,46 @@ button {
             #765c46 20px 27px,
             transparent 27px 45px
         );
-
     opacity: 0.8;
-
     z-index: -1;
 }
 
 .estacion {
     position: relative;
-
     z-index: 2;
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     min-width: 85px;
 }
 
 .estacion-punto {
     width: 80px;
-
     height: 85px;
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: flex-end;
-
     position: relative;
 }
 
 .punto-estacion {
     position: absolute;
-
     bottom: 7px;
-
     font-size: 1.8rem;
-
     z-index: 1;
 }
 
 .personaje-ruta {
     position: absolute;
-
     bottom: 42px;
-
     font-size: 2.5rem;
-
     z-index: 3;
-
     filter:
         drop-shadow(
             0 4px 3px
             rgba(0, 0, 0, 0.2)
         );
-
     animation:
         flotar 1.8s ease-in-out
         infinite;
@@ -717,12 +535,10 @@ button {
 }
 
 @keyframes flotar {
-
     0%,
     100% {
         margin-bottom: 0;
     }
-
     50% {
         margin-bottom: 5px;
     }
@@ -730,42 +546,28 @@ button {
 
 .estacion-nombre {
     margin-top: 0.8rem;
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     text-align: center;
 }
 
 .estacion-nombre span {
     width: 24px;
     height: 24px;
-
     display: grid;
-
     place-items: center;
-
     margin-bottom: 0.3rem;
-
     border-radius: 50%;
-
     background: #344e41;
-
     color: white;
-
     font-size: 0.7rem;
-
     font-weight: bold;
 }
 
 .estacion-nombre strong {
     max-width: 100px;
-
     font-size: 0.75rem;
-
     color: #4e5b53;
 }
 
@@ -775,23 +577,14 @@ button {
 
 .leyenda-ruta {
     display: flex;
-
     justify-content: center;
-
     gap: 1.5rem;
-
     flex-wrap: wrap;
-
     margin-top: 1.5rem;
-
     padding-top: 1rem;
-
     border-top: 1px solid #d9dfda;
-
     font-size: 0.8rem;
-
     font-weight: bold;
-
     color: #68746c;
 }
 
@@ -801,17 +594,11 @@ button {
 
 .panel-control {
     max-width: 1400px;
-
     margin: 1.5rem auto 0;
-
     padding: 1.5rem;
-
     background: #243c32;
-
     color: white;
-
     border-radius: 18px;
-
     box-shadow:
         0 10px 30px
         rgba(30, 50, 40, 0.2);
@@ -819,13 +606,9 @@ button {
 
 .titulo-control {
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     gap: 1rem;
-
     margin-bottom: 1rem;
 }
 
@@ -835,57 +618,38 @@ button {
 
 .titulo-control h2 {
     margin: 0.3rem 0 0;
-
     font-size: 1.4rem;
 }
 
 .indicador-turno {
     padding: 0.5rem 0.8rem;
-
     border-radius: 20px;
-
     background: #365847;
-
     color: #b9d8c3;
-
     font-size: 0.75rem;
-
     font-weight: bold;
 }
 
 .acciones {
     display: grid;
-
     grid-template-columns:
         repeat(4, 1fr);
-
     gap: 0.8rem;
 }
 
 .acciones button {
     min-height: 100px;
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 0.3rem;
-
     border: 2px solid
         rgba(255, 255, 255, 0.15);
-
     border-radius: 14px;
-
     background: #31503f;
-
     color: white;
-
     cursor: pointer;
-
     transition:
         transform 0.15s,
         background 0.15s;
@@ -893,7 +657,6 @@ button {
 
 .acciones button:hover {
     transform: translateY(-3px);
-
     background: #416550;
 }
 
@@ -933,23 +696,14 @@ button {
 
 .panel-evento {
     max-width: 1400px;
-
     margin: 1.5rem auto 0;
-
     display: flex;
-
     align-items: flex-start;
-
     gap: 1rem;
-
     padding: 1rem 1.3rem;
-
     background: white;
-
     border-left: 6px solid #a35332;
-
     border-radius: 12px;
-
     box-shadow:
         0 6px 20px
         rgba(35, 55, 45, 0.08);
@@ -961,15 +715,12 @@ button {
 
 .panel-evento p {
     margin: 0.3rem 0 0;
-
     color: #4e5b53;
-
     line-height: 1.5;
 }
 
 .mensaje-jugada {
     font-weight: bold;
-
     color: #a35332 !important;
 }
 
@@ -979,13 +730,9 @@ button {
 
 .pantalla-resultado {
     min-height: 100vh;
-
     display: flex;
-
     justify-content: center;
-
     padding: 2rem;
-
     background:
         linear-gradient(
             135deg,
@@ -999,17 +746,11 @@ button {
         850px,
         100%
     );
-
     text-align: center;
-
     padding: 2.5rem;
-
     background: white;
-
     border-radius: 22px;
-
     border: 3px solid #344e41;
-
     box-shadow:
         0 20px 60px
         rgba(25, 45, 35, 0.15);
@@ -1021,9 +762,7 @@ button {
 
 .contenido-resultado h1 {
     margin: 0;
-
     color: #243c32;
-
     font-size: clamp(
         2rem,
         5vw,
@@ -1033,7 +772,6 @@ button {
 
 .contenido-resultado h1 span {
     display: block;
-
     color: #a35332;
 }
 
@@ -1047,13 +785,9 @@ button {
 
 .resultado-jugador {
     max-width: 500px;
-
     margin: 1.5rem auto;
-
     padding: 1.5rem;
-
     border-radius: 16px;
-
     background: #f1f5f1;
 }
 
@@ -1063,40 +797,29 @@ button {
 
 .resultado-jugador h3 {
     margin: 0.3rem 0 1rem;
-
     font-size: 1.4rem;
 }
 
 .resultado-recursos {
     display: grid;
-
     grid-template-columns:
         repeat(4, 1fr);
-
     gap: 0.5rem;
-
     margin-top: 1rem;
 }
 
 .resultado-recursos span {
     padding: 0.7rem;
-
     background: white;
-
     border-radius: 8px;
-
     font-weight: bold;
 }
 
 .mensaje-final {
     margin: 1.5rem auto;
-
     padding: 1rem;
-
     background: #f5ebe3;
-
     border-radius: 10px;
-
     color: #70432f;
 }
 
@@ -1106,7 +829,6 @@ button {
 
 .historial-resultado {
     margin: 2rem 0;
-
     text-align: left;
 }
 
@@ -1116,23 +838,16 @@ button {
 
 .lista-historial-resultado {
     max-height: 280px;
-
     overflow-y: auto;
-
     display: flex;
-
     flex-direction: column;
-
     gap: 0.6rem;
 }
 
 .jugada-resultado {
     padding: 0.8rem 1rem;
-
     border-left: 4px solid #344e41;
-
     background: #f5f7f4;
-
     border-radius: 8px;
 }
 
@@ -1142,15 +857,12 @@ button {
 
 .jugada-resultado span {
     color: #a35332;
-
     font-weight: bold;
 }
 
 .jugada-resultado p {
     margin: 0.4rem 0 0;
-
     color: #667269;
-
     font-size: 0.9rem;
 }
 
@@ -1161,7 +873,6 @@ button {
 @media (
     max-width: 1100px
 ) {
-
     .tablero {
         grid-template-columns:
             1fr;
@@ -1182,16 +893,13 @@ button {
 @media (
     max-width: 700px
 ) {
-
     .pantalla-juego {
         padding: 0.7rem;
     }
 
     .encabezado-juego {
         flex-direction: column;
-
         align-items: stretch;
-
         text-align: center;
     }
 
@@ -1234,7 +942,6 @@ button {
 
     .ruta-inicio {
         flex-direction: column;
-
         gap: 0.5rem;
     }
 }
@@ -1242,7 +949,6 @@ button {
 @media (
     max-width: 450px
 ) {
-
     .acciones {
         grid-template-columns:
             1fr;

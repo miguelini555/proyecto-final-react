@@ -33,40 +33,25 @@ const estaciones = [
 ];
 
 function App() {
-
     const [pantalla, setPantalla] = useState("inicio");
-
-    const [jugadores, setJugadores] =
-        useState<Jugador[]>([]);
-
-    const [turno, setTurno] =
-        useState(1);
-
-    const [partida, setPartida] =
-        useState<Partida | null>(null);
-
-    const [mensaje, setMensaje] =
-        useState("");
-
-    const [historial, setHistorial] =
-        useState<Jugada[]>([]);
+    const [jugadores, setJugadores] = useState<Jugador[]>([]);
+    const [turno, setTurno] = useState(1);
+    const [partida, setPartida] = useState<Partida | null>(null);
+    const [mensaje, setMensaje] = useState("");
+    const [historial, setHistorial] = useState<Jugada[]>([]);
 
     async function cargarHistorial(id: string) {
-
         const respuesta = await fetch(
             `/api/partidas/${id}/historial`
         );
-
         const datos =
             await respuesta.json();
-
         if (datos.correcto) {
             setHistorial(datos.historial);
         }
     }
 
     async function iniciarPartida() {
-
         const respuesta =
             await fetch("/api/partidas", {
                 method: "POST",
@@ -76,35 +61,26 @@ function App() {
                 },
                 body: JSON.stringify({})
             });
-
         const datos =
             await respuesta.json();
-
         setPartida(datos.partida);
-
         setJugadores(
             datos.partida.jugadores
         );
-
         setTurno(
             datos.partida.turno
         );
-
         setMensaje("");
-
         setHistorial([]);
-
         setPantalla("juego");
     }
 
     async function realizarJugada(
         accion: string
     ) {
-
         if (partida === null) {
             return;
         }
-
         const respuesta =
             await fetch(
                 `/api/partidas/${partida.id}/jugada`,
@@ -120,55 +96,41 @@ function App() {
                     })
                 }
             );
-
         const datos =
             await respuesta.json();
-
         setMensaje(
             datos.mensaje
         );
-
         if (!datos.correcto) {
-
             if (datos.partida) {
-
                 setPartida(
                     datos.partida
                 );
-
                 setJugadores(
                     datos.partida.jugadores
                 );
-
                 setTurno(
                     datos.partida.turno
                 );
             }
-
             return;
         }
-
         setPartida(
             datos.partida
         );
-
         setJugadores(
             datos.partida.jugadores
         );
-
         setTurno(
             datos.partida.turno
         );
-
         await cargarHistorial(
             datos.partida.id
         );
-
         if (
             datos.partida.estado ===
             "terminada"
         ) {
-
             setPantalla(
                 "resultado"
             );
@@ -199,21 +161,17 @@ function App() {
         );
     }
 
+    
     if (pantalla === "inicio") {
-
         return (
             <div className="pantalla-inicio">
-
                 <div className="decoracion-tren">
                     🚂 ━━━━━━━━━━━━━━━━━ 🚂
                 </div>
-
                 <div className="contenido-inicio">
-
                     <div className="titulo-icono">
                         🐻 🐯
                     </div>
-
                     <h1>
                         Expedición
                         <span>
@@ -227,14 +185,6 @@ function App() {
                         Vladivostok.
                     </p>
 
-                    <div className="ruta-inicio">
-                        <span>🚉 Moscú</span>
-                        <span>🚂</span>
-                        <span>
-                            Vladivostok 🚉
-                        </span>
-                    </div>
-
                     <button
                         className="boton-inicio"
                         onClick={
@@ -243,13 +193,6 @@ function App() {
                     >
                         🚂 INICIAR EXPEDICIÓN
                     </button>
-
-                    <p className="texto-jugadores">
-                        🐻 Jugador 1
-                        {"  VS  "}
-                        🐯 Jugador 2
-                    </p>
-
                 </div>
             </div>
         );
@@ -259,19 +202,15 @@ function App() {
         pantalla === "resultado" &&
         partida !== null
     ) {
-
         const ganador =
             jugadores.find(
                 (jugador) =>
                     jugador.id ===
                     partida.ganador
             );
-
         return (
             <div className="pantalla-resultado">
-
                 <div className="contenido-resultado">
-
                     <div className="trofeo">
                         🏆
                     </div>
@@ -294,9 +233,7 @@ function App() {
                     </p>
 
                     {ganador && (
-
                         <div className="resultado-jugador">
-
                             <div className="resultado-personaje">
                                 {ganador.id === 1
                                     ? "🐻"
@@ -317,7 +254,6 @@ function App() {
                             </p>
 
                             <div className="resultado-recursos">
-
                                 <span>
                                     ⭐{" "}
                                     {ganador.puntos}
@@ -337,9 +273,7 @@ function App() {
                                     ⚡{" "}
                                     {ganador.energia}
                                 </span>
-
                             </div>
-
                         </div>
                     )}
 
@@ -348,22 +282,18 @@ function App() {
                     </p>
 
                     <section className="historial-resultado">
-
                         <h2>
                             📜 Historial de jugadas
                         </h2>
 
                         {historial.length === 0 ? (
-
                             <p>
                                 No se registraron
                                 jugadas.
                             </p>
-
                         ) : (
 
                             <div className="lista-historial-resultado">
-
                                 {historial.map(
                                     (
                                         jugada,
@@ -374,7 +304,6 @@ function App() {
                                             className="jugada-resultado"
                                             key={indice}
                                         >
-
                                             <strong>
                                                 {jugada.jugadorId === 1
                                                     ? "🐻"
@@ -398,14 +327,12 @@ function App() {
                                                     jugada.mensaje
                                                 }
                                             </p>
-
                                         </div>
                                     )
                                 )}
 
                             </div>
                         )}
-
                     </section>
 
                     <button
@@ -416,7 +343,6 @@ function App() {
                     >
                         🚂 NUEVA EXPEDICIÓN
                     </button>
-
                 </div>
             </div>
         );
@@ -424,9 +350,7 @@ function App() {
 
     return (
         <div className="pantalla-juego">
-
             <header className="encabezado-juego">
-
                 <div>
                     <p className="encabezado-pequeno">
                         🚂 RUTA DEL
@@ -454,16 +378,12 @@ function App() {
                             : "🐯 JUGADOR 2"}
                     </strong>
                 </div>
-
             </header>
 
             <main className="tablero">
-
                 <section className="panel-jugadores">
-
                     {jugadores.map(
                         (jugador) => (
-
                             <div
                                 className={
                                     `panel-jugador ${
@@ -475,9 +395,7 @@ function App() {
                                 }
                                 key={jugador.id}
                             >
-
                                 <div className="jugador-cabecera">
-
                                     <div className="personaje">
                                         {jugador.id === 1
                                             ? "🐻"
@@ -498,11 +416,9 @@ function App() {
                                                 : "⏳ Esperando"}
                                         </span>
                                     </div>
-
                                 </div>
 
                                 <div className="estacion-actual">
-
                                     <span>
                                         📍
                                     </span>
@@ -520,11 +436,9 @@ function App() {
                                             }
                                         </strong>
                                     </div>
-
                                 </div>
 
                                 <div className="recursos">
-
                                     <div className="recurso">
                                         <span className="recurso-icono">
                                             ⛽
@@ -606,9 +520,7 @@ function App() {
                 </section>
 
                 <section className="zona-ruta">
-
                     <div className="titulo-ruta">
-
                         <div>
                             <span>
                                 🗺️ MAPA DE EXPEDICIÓN
@@ -622,19 +534,15 @@ function App() {
                         <div className="tren-icono">
                             🚂
                         </div>
-
                     </div>
 
                     <div className="ruta">
-
                         <div className="linea-ferroviaria"></div>
-
                         {estaciones.map(
                             (
                                 estacion,
                                 indice
                             ) => (
-
                                 <div
                                     className={
                                         `estacion ${
@@ -651,9 +559,7 @@ function App() {
                                         estacion
                                     }
                                 >
-
                                     <div className="estacion-punto">
-
                                         {jugadores.map(
                                             (
                                                 jugador
@@ -679,7 +585,6 @@ function App() {
 
                                                 ) : null
                                         )}
-
                                         <div className="punto-estacion">
                                             🚉
                                         </div>
@@ -687,7 +592,6 @@ function App() {
                                     </div>
 
                                     <div className="estacion-nombre">
-
                                         <span>
                                             {indice + 1}
                                         </span>
@@ -695,17 +599,13 @@ function App() {
                                         <strong>
                                             {estacion}
                                         </strong>
-
                                     </div>
-
                                 </div>
                             )
                         )}
-
                     </div>
 
                     <div className="leyenda-ruta">
-
                         <span>
                             🐻 Jugador 1
                         </span>
@@ -719,15 +619,11 @@ function App() {
                         </span>
 
                     </div>
-
                 </section>
-
             </main>
 
             <section className="panel-control">
-
                 <div className="titulo-control">
-
                     <div>
                         <span>
                             🎮 CONTROLES
@@ -744,11 +640,9 @@ function App() {
                     <div className="indicador-turno">
                         🔥 EN JUEGO
                     </div>
-
                 </div>
 
                 <div className="acciones">
-
                     <button
                         className="accion-avanzar"
                         onClick={avanzar}
@@ -804,13 +698,10 @@ function App() {
                             ⚡ 20 · 🍱 10
                         </small>
                     </button>
-
                 </div>
-
             </section>
 
             <section className="panel-evento">
-
                 <div className="evento-icono">
                     📢
                 </div>
@@ -832,11 +723,8 @@ function App() {
                         </p>
 
                     )}
-
                 </div>
-
             </section>
-
         </div>
     );
 }
