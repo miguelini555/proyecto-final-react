@@ -409,8 +409,8 @@ function App() {
                                                         }
                                                     >
                                                         {jugador.id === 1
-                                                            ? "🔴"
-                                                            : "🔵"}
+                                                            ? "🐻"
+                                                            : "🐯"}
                                                     </span>
 
                                                 ) : null

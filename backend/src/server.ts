@@ -1,4 +1,6 @@
 import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
 
 import {
     crearPartida,
@@ -13,11 +15,32 @@ import type { Partida } from "./tipos.js";
 
 const app = express();
 
-const puerto = 3000;
+const puerto =
+    Number(process.env.PORT) || 3000;
 
 app.use(express.json());
 
 const partidas: Partida[] = [];
+
+/*
+ * Obtener la ubicación actual del archivo compilado.
+ */
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+/*
+ * Ubicación del frontend compilado.
+ */
+
+const rutaFrontend = path.join(
+    __dirname,
+    "../../dist"
+);
+
+/*
+ * API
+ */
 
 app.get("/api/saludo", (_solicitud, respuesta) => {
 
@@ -214,9 +237,51 @@ app.post(
     }
 );
 
-app.listen(puerto, () => {
+/*
+ * Servir el frontend compilado.
+ */
 
-    console.log(
-        `Servidor ejecutándose en http://localhost:${puerto}`
-    );
-});
+app.use(
+    express.static(rutaFrontend)
+);
+
+/*
+ * Fallback para React.
+ *
+ * Si la ruta no corresponde a la API ni a
+ * un archivo estático, enviamos index.html.
+ *
+ * Usamos app.use() porque estamos trabajando
+ * con Express 5 y evitamos app.get("*").
+ */
+
+app.use(
+    (_solicitud, respuesta) => {
+
+        respuesta.sendFile(
+            path.join(
+                rutaFrontend,
+                "index.html"
+            )
+        );
+    }
+);
+
+/*
+ * Puerto del servidor.
+ *
+ * Render proporciona PORT mediante una
+ * variable de entorno. Si trabajamos
+ * localmente, usamos el puerto 3000.
+ */
+
+app.listen(
+    puerto,
+    "0.0.0.0",
+    () => {
+
+        console.log(
+            `Servidor ejecutándose en el puerto ${puerto}`
+        );
+    }
+);
