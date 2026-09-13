@@ -1,259 +1,1259 @@
-#root {
-    width: 100%;
-    min-height: 100vh;
+* {
+    box-sizing: border-box;
 }
+
+:root {
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color: #172033;
+    background: #dfe8e2;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+}
+
+button {
+    font-family: inherit;
+}
+
+/* =========================
+   PANTALLA DE INICIO
+   ========================= */
 
 .pantalla-inicio {
     min-height: 100vh;
+
     display: flex;
-    justify-content: center;
     align-items: center;
-    background-color: #111827;
-    text-align: center;
+    justify-content: center;
+
+    padding: 2rem;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dce7df,
+            #f4ead8
+        );
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.pantalla-inicio::before {
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    background: #c8d8cd;
+
+    top: -200px;
+    left: -180px;
+
+    opacity: 0.5;
+}
+
+.pantalla-inicio::after {
+    content: "";
+
+    position: absolute;
+
+    width: 600px;
+    height: 600px;
+
+    border-radius: 50%;
+
+    background: #e9d4b7;
+
+    bottom: -300px;
+    right: -200px;
+
+    opacity: 0.5;
 }
 
 .contenido-inicio {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    padding: 40px;
+    position: relative;
+
+    z-index: 2;
+
+    width: min(
+        720px,
+        100%
+    );
+
+    padding: 3rem;
+
+    text-align: center;
+
+    background: rgba(
+        255,
+        255,
+        255,
+        0.9
+    );
+
+    border: 3px solid #2d4a3e;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(25, 45, 35, 0.2);
+}
+
+.decoracion-tren {
+    position: absolute;
+
+    top: 30px;
+    left: 0;
+
+    width: 100%;
+
+    text-align: center;
+
+    font-size: 1.6rem;
+
+    opacity: 0.35;
+}
+
+.titulo-icono {
+    font-size: 4rem;
+
+    margin-bottom: 1rem;
 }
 
 .contenido-inicio h1 {
     margin: 0;
-    font-size: 56px;
+
+    font-size: clamp(
+        2.5rem,
+        7vw,
+        5rem
+    );
+
+    line-height: 0.95;
+
+    color: #243c32;
+
     text-transform: uppercase;
+
+    letter-spacing: -2px;
 }
 
-.contenido-inicio p {
-    margin: 0;
-    font-size: 20px;
+.contenido-inicio h1 span {
+    display: block;
+
+    color: #a35332;
 }
 
-.contenido-inicio button {
-    margin-top: 20px;
-    padding: 15px 35px;
-    font-size: 18px;
+.subtitulo-inicio {
+    margin: 1.5rem auto;
+
+    max-width: 520px;
+
+    font-size: 1.2rem;
+
+    line-height: 1.6;
+
+    color: #56645c;
+}
+
+.ruta-inicio {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 1rem;
+
+    margin: 2rem 0;
+
     font-weight: bold;
-    cursor: pointer;
+
+    color: #344e41;
+}
+
+.boton-inicio,
+.boton-principal {
     border: none;
-    border-radius: 8px;
+
+    padding: 1rem 2rem;
+
+    border-radius: 12px;
+
+    background: #a35332;
+
+    color: white;
+
+    font-weight: bold;
+
+    font-size: 1rem;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 0 #713820;
+
+    transition:
+        transform 0.15s,
+        box-shadow 0.15s;
 }
 
-.contenido-inicio button:hover {
-    transform: scale(1.05);
+.boton-inicio:hover,
+.boton-principal:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 0 #713820;
 }
 
-/* Pantalla del juego */
+.boton-inicio:active,
+.boton-principal:active {
+    transform: translateY(4px);
+
+    box-shadow:
+        0 2px 0 #713820;
+}
+
+.texto-jugadores {
+    margin-top: 2rem;
+
+    color: #65746b;
+
+    font-weight: bold;
+}
+
+/* =========================
+   PANTALLA DEL JUEGO
+   ========================= */
 
 .pantalla-juego {
     min-height: 100vh;
-    padding: 15px 20px;
-    background-color: #e5e7eb;
+
+    padding: 1.5rem;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dce7df,
+            #f2eadc
+        );
 }
 
+/* =========================
+   ENCABEZADO
+   ========================= */
+
 .encabezado-juego {
-    text-align: center;
-    margin-bottom: 15px;
+    max-width: 1400px;
+
+    margin: 0 auto 1.5rem;
+
+    padding: 1.3rem 1.5rem;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    background: #243c32;
+
+    color: white;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(30, 50, 40, 0.2);
+}
+
+.encabezado-pequeno {
+    margin: 0 0 0.25rem;
+
+    font-size: 0.75rem;
+
+    letter-spacing: 2px;
+
+    opacity: 0.7;
 }
 
 .encabezado-juego h1 {
     margin: 0;
-    font-size: 32px;
+
+    font-size: clamp(
+        1.5rem,
+        4vw,
+        2.5rem
+    );
 }
 
 .encabezado-juego p {
-    margin: 5px 0 0;
+    margin: 0.3rem 0 0;
+
+    opacity: 0.75;
 }
 
-.tablero {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 20px;
+.estado-turno {
+    min-width: 190px;
+
+    padding: 1rem;
+
+    border-radius: 12px;
+
+    background: #365847;
+
+    text-align: center;
 }
+
+.estado-turno span {
+    display: block;
+
+    font-size: 0.75rem;
+
+    letter-spacing: 1px;
+
+    opacity: 0.7;
+}
+
+.estado-turno strong {
+    display: block;
+
+    margin-top: 0.3rem;
+
+    font-size: 1rem;
+}
+
+/* =========================
+   TABLERO
+   ========================= */
+
+.tablero {
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(260px, 0.75fr)
+        minmax(600px, 2fr);
+
+    gap: 1.5rem;
+}
+
+/* =========================
+   JUGADORES
+   ========================= */
 
 .panel-jugadores {
     display: flex;
+
     flex-direction: column;
-    gap: 15px;
+
+    gap: 1rem;
 }
 
 .panel-jugador {
-    padding: 15px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    padding: 1.2rem;
+
+    background: white;
+
+    border: 2px solid #c8d2ca;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(35, 55, 45, 0.1);
+
+    transition:
+        transform 0.2s,
+        border-color 0.2s;
+}
+
+.panel-jugador.jugador-activo {
+    border-color: #a35332;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 30px
+        rgba(163, 83, 50, 0.18);
+}
+
+.jugador-cabecera {
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+}
+
+.personaje {
+    width: 70px;
+    height: 70px;
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 3rem;
+
+    background: #eef2ed;
+
+    border-radius: 50%;
+
+    border: 3px solid #d3ddd5;
 }
 
 .panel-jugador h2 {
-    margin-top: 0;
-    margin-bottom: 10px;
+    margin: 0;
+
+    font-size: 1.3rem;
 }
 
-.panel-jugador p {
-    margin: 6px 0;
+.estado-jugador {
+    display: inline-block;
+
+    margin-top: 0.3rem;
+
+    font-size: 0.8rem;
+
+    color: #718077;
 }
+
+.jugador-activo .estado-jugador {
+    color: #a35332;
+
+    font-weight: bold;
+}
+
+.estacion-actual {
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.7rem;
+
+    padding: 0.8rem;
+
+    margin-bottom: 1rem;
+
+    border-radius: 10px;
+
+    background: #f1f5f1;
+}
+
+.estacion-actual > span {
+    font-size: 1.5rem;
+}
+
+.estacion-actual small,
+.recurso small {
+    display: block;
+
+    font-size: 0.65rem;
+
+    color: #7a877e;
+
+    text-transform: uppercase;
+}
+
+.estacion-actual strong {
+    display: block;
+
+    margin-top: 0.15rem;
+}
+
+.recursos {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 0.6rem;
+}
+
+.recurso {
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.5rem;
+
+    padding: 0.65rem;
+
+    background: #f7f8f6;
+
+    border-radius: 10px;
+}
+
+.recurso-icono {
+    font-size: 1.35rem;
+}
+
+.recurso strong {
+    font-size: 1rem;
+}
+
+/* =========================
+   RUTA
+   ========================= */
 
 .zona-ruta {
-    padding: 20px;
-    background-color: white;
-    border-radius: 10px;
+    position: relative;
+
+    min-width: 0;
+
+    padding: 1.5rem;
+
+    background: #fafbf9;
+
+    border: 2px solid #c8d2ca;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(35, 55, 45, 0.1);
+
     overflow: hidden;
 }
 
-.zona-ruta h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    text-align: center;
+.titulo-ruta {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 3rem;
 }
 
+.titulo-ruta span,
+.titulo-control span,
+.panel-evento > div > span {
+    font-size: 0.7rem;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    color: #a35332;
+}
+
+.titulo-ruta h2 {
+    margin: 0.3rem 0 0;
+
+    color: #243c32;
+
+    font-size: 1.7rem;
+}
+
+.tren-icono {
+    font-size: 2.5rem;
+}
+
+/*
+ * Contenedor de la línea ferroviaria.
+ */
+
 .ruta {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(10, minmax(85px, 1fr));
+
+    min-width: 900px;
+
+    padding:
+        2rem
+        1rem
+        1.5rem;
+}
+
+/*
+ * Línea principal de los rieles.
+ */
+
+.linea-ferroviaria {
+    position: absolute;
+
+    left: 4%;
+
+    right: 4%;
+
+    top: 74px;
+
+    height: 12px;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #59655e 0 18px,
+            transparent 18px 28px
+        );
+
+    border-top: 4px solid #303a35;
+
+    border-bottom: 4px solid #303a35;
+
+    z-index: 0;
+}
+
+/*
+ * Durmientes del ferrocarril.
+ */
+
+.linea-ferroviaria::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    top: -8px;
+
+    height: 20px;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent 0 20px,
+            #765c46 20px 27px,
+            transparent 27px 45px
+        );
+
+    opacity: 0.8;
+
+    z-index: -1;
 }
 
 .estacion {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    flex: 1;
     position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    min-width: 85px;
 }
 
 .estacion-punto {
-    font-size: 25px;
-    line-height: 25px;
+    width: 80px;
+
+    height: 85px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    position: relative;
+}
+
+.punto-estacion {
+    position: absolute;
+
+    bottom: 7px;
+
+    font-size: 1.8rem;
+
+    z-index: 1;
+}
+
+.personaje-ruta {
+    position: absolute;
+
+    bottom: 42px;
+
+    font-size: 2.5rem;
+
+    z-index: 3;
+
+    filter:
+        drop-shadow(
+            0 4px 3px
+            rgba(0, 0, 0, 0.2)
+        );
+
+    animation:
+        flotar 1.8s ease-in-out
+        infinite;
+}
+
+.personaje-1 {
+    transform: translateX(-20px);
+}
+
+.personaje-2 {
+    transform: translateX(20px);
+}
+
+@keyframes flotar {
+
+    0%,
+    100% {
+        margin-bottom: 0;
+    }
+
+    50% {
+        margin-bottom: 5px;
+    }
 }
 
 .estacion-nombre {
+    margin-top: 0.8rem;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+}
+
+.estacion-nombre span {
+    width: 24px;
+    height: 24px;
+
+    display: grid;
+
+    place-items: center;
+
+    margin-bottom: 0.3rem;
+
+    border-radius: 50%;
+
+    background: #344e41;
+
+    color: white;
+
+    font-size: 0.7rem;
+
     font-weight: bold;
-    padding: 8px 5px;
-    font-size: 13px;
 }
 
-/* Turno */
+.estacion-nombre strong {
+    max-width: 100px;
 
-.panel-turno {
-    margin-top: 15px;
-    padding: 12px;
+    font-size: 0.75rem;
+
+    color: #4e5b53;
 }
 
-.panel-turno h2 {
-    margin-top: 0;
+.estacion-activa .estacion-nombre strong {
+    color: #a35332;
+}
+
+.leyenda-ruta {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 1.5rem;
+
+    flex-wrap: wrap;
+
+    margin-top: 1.5rem;
+
+    padding-top: 1rem;
+
+    border-top: 1px solid #d9dfda;
+
+    font-size: 0.8rem;
+
+    font-weight: bold;
+
+    color: #68746c;
+}
+
+/* =========================
+   CONTROLES
+   ========================= */
+
+.panel-control {
+    max-width: 1400px;
+
+    margin: 1.5rem auto 0;
+
+    padding: 1.5rem;
+
+    background: #243c32;
+
+    color: white;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(30, 50, 40, 0.2);
+}
+
+.titulo-control {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+}
+
+.titulo-control span {
+    color: #d7b18e;
+}
+
+.titulo-control h2 {
+    margin: 0.3rem 0 0;
+
+    font-size: 1.4rem;
+}
+
+.indicador-turno {
+    padding: 0.5rem 0.8rem;
+
+    border-radius: 20px;
+
+    background: #365847;
+
+    color: #b9d8c3;
+
+    font-size: 0.75rem;
+
+    font-weight: bold;
 }
 
 .acciones {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 0.8rem;
 }
 
 .acciones button {
-    padding: 12px 25px;
-    font-weight: bold;
+    min-height: 100px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 0.3rem;
+
+    border: 2px solid
+        rgba(255, 255, 255, 0.15);
+
+    border-radius: 14px;
+
+    background: #31503f;
+
+    color: white;
+
     cursor: pointer;
-    border: none;
-    border-radius: 8px;
+
+    transition:
+        transform 0.15s,
+        background 0.15s;
 }
 
-/* Evento */
+.acciones button:hover {
+    transform: translateY(-3px);
+
+    background: #416550;
+}
+
+.acciones button > span {
+    font-size: 2rem;
+}
+
+.acciones button strong {
+    font-size: 0.9rem;
+}
+
+.acciones button small {
+    font-size: 0.7rem;
+
+    opacity: 0.7;
+}
+
+.accion-avanzar {
+    border-color: #d39a72 !important;
+}
+
+.accion-explorar {
+    border-color: #9fb9a7 !important;
+}
+
+.accion-preparar {
+    border-color: #d9bd81 !important;
+}
+
+.accion-bloquear {
+    border-color: #bd8b7d !important;
+}
+
+/* =========================
+   EVENTO
+   ========================= */
 
 .panel-evento {
-    margin-top: 12px;
-    padding: 12px;
-}
+    max-width: 1400px;
 
-.panel-evento h2 {
-    margin-top: 0;
-}
+    margin: 1.5rem auto 0;
 
-.pantalla-resultado {
-    min-height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
-    background: #f1f1f1;
-}
 
-.contenido-resultado {
-    width: 100%;
-    max-width: 700px;
-    padding: 50px;
-    text-align: center;
+    align-items: flex-start;
+
+    gap: 1rem;
+
+    padding: 1rem 1.3rem;
+
     background: white;
-    border-radius: 20px;
-}
 
-.contenido-resultado h1 {
-    margin-bottom: 20px;
-}
+    border-left: 6px solid #a35332;
 
-.contenido-resultado h2 {
-    margin-bottom: 20px;
-}
-
-.resultado-jugador {
-    margin: 25px auto;
-    padding: 20px;
-    max-width: 400px;
-    text-align: left;
     border-radius: 12px;
-    background: #eeeeee;
+
+    box-shadow:
+        0 6px 20px
+        rgba(35, 55, 45, 0.08);
 }
 
-.mensaje-final {
-    margin: 25px 0;
-    font-weight: bold;
+.evento-icono {
+    font-size: 2rem;
+}
+
+.panel-evento p {
+    margin: 0.3rem 0 0;
+
+    color: #4e5b53;
+
+    line-height: 1.5;
 }
 
 .mensaje-jugada {
-    margin-top: 20px;
+    font-weight: bold;
+
+    color: #a35332 !important;
+}
+
+/* =========================
+   RESULTADO
+   ========================= */
+
+.pantalla-resultado {
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    padding: 2rem;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dce7df,
+            #f2eadc
+        );
+}
+
+.contenido-resultado {
+    width: min(
+        850px,
+        100%
+    );
+
+    text-align: center;
+
+    padding: 2.5rem;
+
+    background: white;
+
+    border-radius: 22px;
+
+    border: 3px solid #344e41;
+
+    box-shadow:
+        0 20px 60px
+        rgba(25, 45, 35, 0.15);
+}
+
+.trofeo {
+    font-size: 4rem;
+}
+
+.contenido-resultado h1 {
+    margin: 0;
+
+    color: #243c32;
+
+    font-size: clamp(
+        2rem,
+        5vw,
+        3.5rem
+    );
+}
+
+.contenido-resultado h1 span {
+    display: block;
+
+    color: #a35332;
+}
+
+.contenido-resultado h2 {
+    margin-top: 1rem;
+}
+
+.resultado-descripcion {
+    color: #68746c;
+}
+
+.resultado-jugador {
+    max-width: 500px;
+
+    margin: 1.5rem auto;
+
+    padding: 1.5rem;
+
+    border-radius: 16px;
+
+    background: #f1f5f1;
+}
+
+.resultado-personaje {
+    font-size: 4rem;
+}
+
+.resultado-jugador h3 {
+    margin: 0.3rem 0 1rem;
+
+    font-size: 1.4rem;
+}
+
+.resultado-recursos {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 0.5rem;
+
+    margin-top: 1rem;
+}
+
+.resultado-recursos span {
+    padding: 0.7rem;
+
+    background: white;
+
+    border-radius: 8px;
+
     font-weight: bold;
 }
 
+.mensaje-final {
+    margin: 1.5rem auto;
+
+    padding: 1rem;
+
+    background: #f5ebe3;
+
+    border-radius: 10px;
+
+    color: #70432f;
+}
+
+/* =========================
+   HISTORIAL
+   ========================= */
+
 .historial-resultado {
-    margin: 30px 0;
-    padding: 25px;
-    background: #eeeeee;
-    border-radius: 15px;
+    margin: 2rem 0;
+
     text-align: left;
 }
 
 .historial-resultado h2 {
-    margin-top: 0;
     text-align: center;
 }
 
 .lista-historial-resultado {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    max-height: 250px;
+    max-height: 280px;
+
     overflow-y: auto;
-    padding-right: 8px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.6rem;
 }
 
 .jugada-resultado {
-    padding: 12px;
-    background: white;
-    border-radius: 10px;
+    padding: 0.8rem 1rem;
+
+    border-left: 4px solid #344e41;
+
+    background: #f5f7f4;
+
+    border-radius: 8px;
 }
 
 .jugada-resultado strong {
-    margin-right: 5px;
+    margin-right: 0.5rem;
 }
 
 .jugada-resultado span {
+    color: #a35332;
+
     font-weight: bold;
 }
 
 .jugada-resultado p {
-    margin: 8px 0 0 0;
+    margin: 0.4rem 0 0;
+
+    color: #667269;
+
+    font-size: 0.9rem;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (
+    max-width: 1100px
+) {
+
+    .tablero {
+        grid-template-columns:
+            1fr;
+    }
+
+    .panel-jugadores {
+        display: grid;
+
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .zona-ruta {
+        overflow-x: auto;
+    }
+}
+
+@media (
+    max-width: 700px
+) {
+
+    .pantalla-juego {
+        padding: 0.7rem;
+    }
+
+    .encabezado-juego {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        text-align: center;
+    }
+
+    .estado-turno {
+        width: 100%;
+    }
+
+    .panel-jugadores {
+        grid-template-columns:
+            1fr;
+    }
+
+    .acciones {
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .titulo-control {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .indicador-turno {
+        text-align: center;
+    }
+
+    .resultado-recursos {
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .contenido-inicio {
+        padding: 2rem 1rem;
+    }
+
+    .contenido-inicio h1 {
+        font-size: 2.5rem;
+    }
+
+    .ruta-inicio {
+        flex-direction: column;
+
+        gap: 0.5rem;
+    }
+}
+
+@media (
+    max-width: 450px
+) {
+
+    .acciones {
+        grid-template-columns:
+            1fr;
+    }
+
+    .recursos {
+        grid-template-columns:
+            1fr;
+    }
+
+    .contenido-resultado {
+        padding: 1.5rem 1rem;
+    }
 }

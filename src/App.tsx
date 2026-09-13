@@ -36,15 +36,20 @@ function App() {
 
     const [pantalla, setPantalla] = useState("inicio");
 
-    const [jugadores, setJugadores] = useState<Jugador[]>([]);
+    const [jugadores, setJugadores] =
+        useState<Jugador[]>([]);
 
-    const [turno, setTurno] = useState(1);
+    const [turno, setTurno] =
+        useState(1);
 
-    const [partida, setPartida] = useState<Partida | null>(null);
+    const [partida, setPartida] =
+        useState<Partida | null>(null);
 
-    const [mensaje, setMensaje] = useState("");
+    const [mensaje, setMensaje] =
+        useState("");
 
-    const [historial, setHistorial] = useState<Jugada[]>([]);
+    const [historial, setHistorial] =
+        useState<Jugada[]>([]);
 
     async function cargarHistorial(id: string) {
 
@@ -52,7 +57,8 @@ function App() {
             `/api/partidas/${id}/historial`
         );
 
-        const datos = await respuesta.json();
+        const datos =
+            await respuesta.json();
 
         if (datos.correcto) {
             setHistorial(datos.historial);
@@ -61,15 +67,18 @@ function App() {
 
     async function iniciarPartida() {
 
-        const respuesta = await fetch("/api/partidas", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({})
-        });
+        const respuesta =
+            await fetch("/api/partidas", {
+                method: "POST",
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+                body: JSON.stringify({})
+            });
 
-        const datos = await respuesta.json();
+        const datos =
+            await respuesta.json();
 
         setPartida(datos.partida);
 
@@ -88,27 +97,32 @@ function App() {
         setPantalla("juego");
     }
 
-    async function realizarJugada(accion: string) {
+    async function realizarJugada(
+        accion: string
+    ) {
 
         if (partida === null) {
             return;
         }
 
-        const respuesta = await fetch(
-            `/api/partidas/${partida.id}/jugada`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    jugadorId: turno,
-                    accion: accion
-                })
-            }
-        );
+        const respuesta =
+            await fetch(
+                `/api/partidas/${partida.id}/jugada`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+                    body: JSON.stringify({
+                        jugadorId: turno,
+                        accion: accion
+                    })
+                }
+            );
 
-        const datos = await respuesta.json();
+        const datos =
+            await respuesta.json();
 
         setMensaje(
             datos.mensaje
@@ -151,27 +165,38 @@ function App() {
         );
 
         if (
-            datos.partida.estado === "terminada"
+            datos.partida.estado ===
+            "terminada"
         ) {
 
-            setPantalla("resultado");
+            setPantalla(
+                "resultado"
+            );
         }
     }
 
     async function avanzar() {
-        await realizarJugada("avanzar");
+        await realizarJugada(
+            "avanzar"
+        );
     }
 
     async function explorar() {
-        await realizarJugada("explorar");
+        await realizarJugada(
+            "explorar"
+        );
     }
 
     async function prepararse() {
-        await realizarJugada("prepararse");
+        await realizarJugada(
+            "prepararse"
+        );
     }
 
     async function bloquear() {
-        await realizarJugada("bloquear");
+        await realizarJugada(
+            "bloquear"
+        );
     }
 
     if (pantalla === "inicio") {
@@ -179,23 +204,53 @@ function App() {
         return (
             <div className="pantalla-inicio">
 
-                <div className="contenido-inicio">
-
-                    <h1>
-                        Expedición Transiberiana
-                    </h1>
-
-                    <p>
-                        Una aventura ferroviaria desde
-                        Moscú hasta Vladivostok.
-                    </p>
-
-                    <button onClick={iniciarPartida}>
-                        INICIAR EXPEDICIÓN
-                    </button>
-
+                <div className="decoracion-tren">
+                    🚂 ━━━━━━━━━━━━━━━━━ 🚂
                 </div>
 
+                <div className="contenido-inicio">
+
+                    <div className="titulo-icono">
+                        🐻 🐯
+                    </div>
+
+                    <h1>
+                        Expedición
+                        <span>
+                            Transiberiana
+                        </span>
+                    </h1>
+
+                    <p className="subtitulo-inicio">
+                        Una aventura ferroviaria
+                        desde Moscú hasta
+                        Vladivostok.
+                    </p>
+
+                    <div className="ruta-inicio">
+                        <span>🚉 Moscú</span>
+                        <span>🚂</span>
+                        <span>
+                            Vladivostok 🚉
+                        </span>
+                    </div>
+
+                    <button
+                        className="boton-inicio"
+                        onClick={
+                            iniciarPartida
+                        }
+                    >
+                        🚂 INICIAR EXPEDICIÓN
+                    </button>
+
+                    <p className="texto-jugadores">
+                        🐻 Jugador 1
+                        {"  VS  "}
+                        🐯 Jugador 2
+                    </p>
+
+                </div>
             </div>
         );
     }
@@ -205,73 +260,104 @@ function App() {
         partida !== null
     ) {
 
-        const ganador = jugadores.find(
-            (jugador) =>
-                jugador.id === partida.ganador
-        );
+        const ganador =
+            jugadores.find(
+                (jugador) =>
+                    jugador.id ===
+                    partida.ganador
+            );
 
         return (
             <div className="pantalla-resultado">
 
                 <div className="contenido-resultado">
 
+                    <div className="trofeo">
+                        🏆
+                    </div>
+
                     <h1>
-                        ¡EXPEDICIÓN COMPLETADA!
+                        ¡EXPEDICIÓN
+                        <span>
+                            COMPLETADA!
+                        </span>
                     </h1>
 
                     <h2>
-                        🏆 {ganador?.nombre} ha ganado
+                        🏆 {ganador?.nombre}
+                        {" "}ha ganado
                     </h2>
 
-                    <p>
-                        El ganador llegó hasta Vladivostok.
+                    <p className="resultado-descripcion">
+                        🚂 El viaje ha llegado
+                        hasta Vladivostok.
                     </p>
 
                     {ganador && (
+
                         <div className="resultado-jugador">
 
-                            <p>
-                                Estación:{" "}
-                                {estaciones[ganador.posicion]}
-                            </p>
+                            <div className="resultado-personaje">
+                                {ganador.id === 1
+                                    ? "🐻"
+                                    : "🐯"}
+                            </div>
+
+                            <h3>
+                                {ganador.nombre}
+                            </h3>
 
                             <p>
-                                Puntos:{" "}
-                                {ganador.puntos}
+                                📍 Estación:{" "}
+                                {
+                                    estaciones[
+                                        ganador.posicion
+                                    ]
+                                }
                             </p>
 
-                            <p>
-                                Combustible:{" "}
-                                {ganador.combustible}
-                            </p>
+                            <div className="resultado-recursos">
 
-                            <p>
-                                Suministros:{" "}
-                                {ganador.suministros}
-                            </p>
+                                <span>
+                                    ⭐{" "}
+                                    {ganador.puntos}
+                                </span>
 
-                            <p>
-                                Energía:{" "}
-                                {ganador.energia}
-                            </p>
+                                <span>
+                                    ⛽{" "}
+                                    {ganador.combustible}
+                                </span>
+
+                                <span>
+                                    🍱{" "}
+                                    {ganador.suministros}
+                                </span>
+
+                                <span>
+                                    ⚡{" "}
+                                    {ganador.energia}
+                                </span>
+
+                            </div>
 
                         </div>
                     )}
 
                     <p className="mensaje-final">
-                        {partida.evento}
+                        📢 {partida.evento}
                     </p>
 
                     <section className="historial-resultado">
 
                         <h2>
-                            Historial de jugadas
+                            📜 Historial de jugadas
                         </h2>
 
                         {historial.length === 0 ? (
 
                             <p>
-                                No se registraron jugadas.
+                                No se registraron
+                                jugadas.
                             </p>
 
                         ) : (
@@ -279,7 +365,10 @@ function App() {
                             <div className="lista-historial-resultado">
 
                                 {historial.map(
-                                    (jugada, indice) => (
+                                    (
+                                        jugada,
+                                        indice
+                                    ) => (
 
                                         <div
                                             className="jugada-resultado"
@@ -287,17 +376,27 @@ function App() {
                                         >
 
                                             <strong>
+                                                {jugada.jugadorId === 1
+                                                    ? "🐻"
+                                                    : "🐯"}{" "}
                                                 Jugador{" "}
-                                                {jugada.jugadorId}
+                                                {
+                                                    jugada.jugadorId
+                                                }
                                             </strong>
 
                                             <span>
                                                 {" → "}
-                                                {jugada.accion.toUpperCase()}
+                                                {
+                                                    jugada.accion
+                                                        .toUpperCase()
+                                                }
                                             </span>
 
                                             <p>
-                                                {jugada.mensaje}
+                                                {
+                                                    jugada.mensaje
+                                                }
                                             </p>
 
                                         </div>
@@ -309,12 +408,16 @@ function App() {
 
                     </section>
 
-                    <button onClick={iniciarPartida}>
-                        NUEVA EXPEDICIÓN
+                    <button
+                        className="boton-principal"
+                        onClick={
+                            iniciarPartida
+                        }
+                    >
+                        🚂 NUEVA EXPEDICIÓN
                     </button>
 
                 </div>
-
             </div>
         );
     }
@@ -324,13 +427,33 @@ function App() {
 
             <header className="encabezado-juego">
 
-                <h1>
-                    Expedición Transiberiana
-                </h1>
+                <div>
+                    <p className="encabezado-pequeno">
+                        🚂 RUTA DEL
+                        FERROCARRIL
+                    </p>
 
-                <p>
-                    De Moscú a Vladivostok
-                </p>
+                    <h1>
+                        Expedición
+                        Transiberiana
+                    </h1>
+
+                    <p>
+                        Moscú → Vladivostok
+                    </p>
+                </div>
+
+                <div className="estado-turno">
+                    <span>
+                        🎯 TURNO
+                    </span>
+
+                    <strong>
+                        {turno === 1
+                            ? "🐻 JUGADOR 1"
+                            : "🐯 JUGADOR 2"}
+                    </strong>
+                </div>
 
             </header>
 
@@ -338,77 +461,218 @@ function App() {
 
                 <section className="panel-jugadores">
 
-                    {jugadores.map((jugador) => (
+                    {jugadores.map(
+                        (jugador) => (
 
-                        <div
-                            className="panel-jugador"
-                            key={jugador.id}
-                        >
+                            <div
+                                className={
+                                    `panel-jugador ${
+                                        jugador.id ===
+                                        turno
+                                            ? "jugador-activo"
+                                            : ""
+                                    }`
+                                }
+                                key={jugador.id}
+                            >
 
-                            <h2>
-                                {jugador.nombre}
-                            </h2>
+                                <div className="jugador-cabecera">
 
-                            <p>
-                                Estación:{" "}
-                                {estaciones[jugador.posicion]}
-                            </p>
+                                    <div className="personaje">
+                                        {jugador.id === 1
+                                            ? "🐻"
+                                            : "🐯"}
+                                    </div>
 
-                            <p>
-                                Combustible:{" "}
-                                {jugador.combustible}
-                            </p>
+                                    <div>
+                                        <h2>
+                                            {
+                                                jugador.nombre
+                                            }
+                                        </h2>
 
-                            <p>
-                                Suministros:{" "}
-                                {jugador.suministros}
-                            </p>
+                                        <span className="estado-jugador">
+                                            {jugador.id ===
+                                            turno
+                                                ? "🎯 Tu turno"
+                                                : "⏳ Esperando"}
+                                        </span>
+                                    </div>
 
-                            <p>
-                                Energía:{" "}
-                                {jugador.energia}
-                            </p>
+                                </div>
 
-                            <p>
-                                Puntos:{" "}
-                                {jugador.puntos}
-                            </p>
+                                <div className="estacion-actual">
 
-                        </div>
+                                    <span>
+                                        📍
+                                    </span>
 
-                    ))}
+                                    <div>
+                                        <small>
+                                            ESTACIÓN
+                                        </small>
+
+                                        <strong>
+                                            {
+                                                estaciones[
+                                                    jugador.posicion
+                                                ]
+                                            }
+                                        </strong>
+                                    </div>
+
+                                </div>
+
+                                <div className="recursos">
+
+                                    <div className="recurso">
+                                        <span className="recurso-icono">
+                                            ⛽
+                                        </span>
+
+                                        <div>
+                                            <small>
+                                                Combustible
+                                            </small>
+
+                                            <strong>
+                                                {
+                                                    jugador.combustible
+                                                }
+                                            </strong>
+                                        </div>
+                                    </div>
+
+                                    <div className="recurso">
+                                        <span className="recurso-icono">
+                                            🍱
+                                        </span>
+
+                                        <div>
+                                            <small>
+                                                Suministros
+                                            </small>
+
+                                            <strong>
+                                                {
+                                                    jugador.suministros
+                                                }
+                                            </strong>
+                                        </div>
+                                    </div>
+
+                                    <div className="recurso">
+                                        <span className="recurso-icono">
+                                            ⚡
+                                        </span>
+
+                                        <div>
+                                            <small>
+                                                Energía
+                                            </small>
+
+                                            <strong>
+                                                {
+                                                    jugador.energia
+                                                }
+                                            </strong>
+                                        </div>
+                                    </div>
+
+                                    <div className="recurso">
+                                        <span className="recurso-icono">
+                                            ⭐
+                                        </span>
+
+                                        <div>
+                                            <small>
+                                                Puntos
+                                            </small>
+
+                                            <strong>
+                                                {
+                                                    jugador.puntos
+                                                }
+                                            </strong>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        )
+                    )}
 
                 </section>
 
                 <section className="zona-ruta">
 
-                    <h2>
-                        Ruta Transiberiana
-                    </h2>
+                    <div className="titulo-ruta">
+
+                        <div>
+                            <span>
+                                🗺️ MAPA DE EXPEDICIÓN
+                            </span>
+
+                            <h2>
+                                Ruta Transiberiana
+                            </h2>
+                        </div>
+
+                        <div className="tren-icono">
+                            🚂
+                        </div>
+
+                    </div>
 
                     <div className="ruta">
 
+                        <div className="linea-ferroviaria"></div>
+
                         {estaciones.map(
-                            (estacion, indice) => (
+                            (
+                                estacion,
+                                indice
+                            ) => (
 
                                 <div
-                                    className="estacion"
-                                    key={estacion}
+                                    className={
+                                        `estacion ${
+                                            jugadores.some(
+                                                (jugador) =>
+                                                    jugador.posicion ===
+                                                    indice
+                                            )
+                                                ? "estacion-activa"
+                                                : ""
+                                        }`
+                                    }
+                                    key={
+                                        estacion
+                                    }
                                 >
 
                                     <div className="estacion-punto">
 
                                         {jugadores.map(
-                                            (jugador) =>
+                                            (
+                                                jugador
+                                            ) =>
                                                 jugador.posicion ===
                                                 indice ? (
 
                                                     <span
+                                                        className={
+                                                            `personaje-ruta personaje-${
+                                                                jugador.id
+                                                            }`
+                                                        }
                                                         key={
                                                             jugador.id
                                                         }
                                                     >
-                                                        {jugador.id === 1
+                                                        {jugador.id ===
+                                                        1
                                                             ? "🐻"
                                                             : "🐯"}
                                                     </span>
@@ -416,12 +680,21 @@ function App() {
                                                 ) : null
                                         )}
 
+                                        <div className="punto-estacion">
+                                            🚉
+                                        </div>
+
                                     </div>
 
                                     <div className="estacion-nombre">
 
-                                        {indice + 1}.{" "}
-                                        {estacion}
+                                        <span>
+                                            {indice + 1}
+                                        </span>
+
+                                        <strong>
+                                            {estacion}
+                                        </strong>
 
                                     </div>
 
@@ -431,32 +704,105 @@ function App() {
 
                     </div>
 
+                    <div className="leyenda-ruta">
+
+                        <span>
+                            🐻 Jugador 1
+                        </span>
+
+                        <span>
+                            🐯 Jugador 2
+                        </span>
+
+                        <span>
+                            🚉 Estación
+                        </span>
+
+                    </div>
+
                 </section>
 
             </main>
 
-            <section className="panel-turno">
+            <section className="panel-control">
 
-                <h2>
-                    Turno del Jugador {turno}
-                </h2>
+                <div className="titulo-control">
+
+                    <div>
+                        <span>
+                            🎮 CONTROLES
+                        </span>
+
+                        <h2>
+                            Turno del{" "}
+                            {turno === 1
+                                ? "🐻 Jugador 1"
+                                : "🐯 Jugador 2"}
+                        </h2>
+                    </div>
+
+                    <div className="indicador-turno">
+                        🔥 EN JUEGO
+                    </div>
+
+                </div>
 
                 <div className="acciones">
 
-                    <button onClick={avanzar}>
-                        AVANZAR
+                    <button
+                        className="accion-avanzar"
+                        onClick={avanzar}
+                    >
+                        <span>🚂</span>
+                        <strong>
+                            AVANZAR
+                        </strong>
+                        <small>
+                            ⛽ 10 · 🍱 5
+                        </small>
                     </button>
 
-                    <button onClick={explorar}>
-                        EXPLORAR
+                    <button
+                        className="accion-explorar"
+                        onClick={explorar}
+                    >
+                        <span>🔎</span>
+                        <strong>
+                            EXPLORAR
+                        </strong>
+                        <small>
+                            ⚡ 5
+                        </small>
                     </button>
 
-                    <button onClick={prepararse}>
-                        PREPARARSE
+                    <button
+                        className="accion-preparar"
+                        onClick={
+                            prepararse
+                        }
+                    >
+                        <span>⛺</span>
+                        <strong>
+                            PREPARARSE
+                        </strong>
+                        <small>
+                            🍱 5 · ⚡ +15
+                        </small>
                     </button>
 
-                    <button onClick={bloquear}>
-                        BLOQUEAR
+                    <button
+                        className="accion-bloquear"
+                        onClick={
+                            bloquear
+                        }
+                    >
+                        <span>🚧</span>
+                        <strong>
+                            BLOQUEAR
+                        </strong>
+                        <small>
+                            ⚡ 20 · 🍱 10
+                        </small>
                     </button>
 
                 </div>
@@ -465,19 +811,29 @@ function App() {
 
             <section className="panel-evento">
 
-                <h2>
-                    Evento
-                </h2>
+                <div className="evento-icono">
+                    📢
+                </div>
 
-                <p>
-                    {partida?.evento}
-                </p>
+                <div>
 
-                {mensaje && (
-                    <p className="mensaje-jugada">
-                        {mensaje}
+                    <span>
+                        EVENTO DE LA EXPEDICIÓN
+                    </span>
+
+                    <p>
+                        {partida?.evento}
                     </p>
-                )}
+
+                    {mensaje && (
+
+                        <p className="mensaje-jugada">
+                            🎲 {mensaje}
+                        </p>
+
+                    )}
+
+                </div>
 
             </section>
 
