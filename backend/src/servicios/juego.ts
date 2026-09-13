@@ -38,13 +38,11 @@ export function agregarJugada(
     accion: string,
     mensaje: string
 ): void {
-
     const jugada: Jugada = {
         jugadorId: jugadorId,
         accion: accion,
         mensaje: mensaje
     };
-
     partida.historial.push(jugada);
 }
 
@@ -52,7 +50,6 @@ export function avanzarJugador(
     partida: Partida,
     jugadorId: number
 ): string {
-
     const jugador = partida.jugadores.find(
         (jugador) => jugador.id === jugadorId
     );
@@ -66,15 +63,11 @@ export function avanzarJugador(
     }
 
     if (partida.jugadorBloqueado === jugadorId) {
-
         partida.jugadorBloqueado = 0;
-
         partida.turno =
             partida.turno === 1 ? 2 : 1;
-
         partida.evento =
             `${jugador.nombre} estaba bloqueado y perdió su turno.`;
-
         return partida.evento;
     }
 
@@ -90,41 +83,23 @@ export function avanzarJugador(
         return "Ya estás en Vladivostok";
     }
 
-    jugador.posicion =
-        jugador.posicion + 1;
+    jugador.posicion = jugador.posicion + 1;
 
-    jugador.combustible =
-        jugador.combustible - 10;
+    jugador.combustible = jugador.combustible - 10;
 
-    jugador.suministros =
-        jugador.suministros - 5;
+    jugador.suministros = jugador.suministros - 5;
 
-    jugador.puntos =
-        jugador.puntos + 5;
+    jugador.puntos = jugador.puntos + 5;
 
     if (jugador.posicion === 9) {
-
-        jugador.puntos =
-            jugador.puntos + 50;
-
-        partida.estado =
-            "terminada";
-
-        partida.ganador =
-            jugador.id;
-
-        partida.evento =
-            `${jugador.nombre} llegó a Vladivostok y ganó la partida.`;
-
+        jugador.puntos = jugador.puntos + 50;
+        partida.estado = "terminada";
+        partida.ganador = jugador.id;
+        partida.evento = `${jugador.nombre} llegó a Vladivostok y ganó la partida.`;
         return partida.evento;
     }
-
-    partida.evento =
-        `${jugador.nombre} avanzó a la siguiente estación.`;
-
-    partida.turno =
-        partida.turno === 1 ? 2 : 1;
-
+    partida.evento = `${jugador.nombre} avanzó a la siguiente estación.`;
+    partida.turno = partida.turno === 1 ? 2 : 1;
     return partida.evento;
 }
 
@@ -132,7 +107,6 @@ export function explorarJugador(
     partida: Partida,
     jugadorId: number
 ): string {
-
     const jugador = partida.jugadores.find(
         (jugador) => jugador.id === jugadorId
     );
@@ -149,14 +123,9 @@ export function explorarJugador(
         return "No tienes suficiente energía";
     }
 
-    jugador.energia =
-        jugador.energia - 5;
-
-    const resultado =
-        Math.floor(Math.random() * 3);
-
+    jugador.energia = jugador.energia - 5;
+    const resultado = Math.floor(Math.random() * 3);
     if (resultado === 0) {
-
         jugador.suministros = Math.min(
             jugador.suministros + 15,
             100
@@ -166,38 +135,22 @@ export function explorarJugador(
             jugador.combustible + 10,
             100
         );
-
-        jugador.puntos =
-            jugador.puntos + 3;
-
-        partida.evento =
-            `${jugador.nombre} encontró una estación de suministros. ` +
+        jugador.puntos = jugador.puntos + 3;
+        partida.evento = `${jugador.nombre} encontró una estación de suministros. ` +
             "Ganó 15 suministros y 10 de combustible.";
-
     } else if (resultado === 1) {
-
-        jugador.puntos =
-            jugador.puntos + 1;
-
-        partida.evento =
-            `${jugador.nombre} exploró la zona, ` +
-            "pero no encontró recursos.";
-
+        jugador.puntos = jugador.puntos + 1;
+        partida.evento = `${jugador.nombre} exploró la zona, ` + "pero no encontró recursos.";
     } else {
-
         jugador.energia = Math.max(
             jugador.energia - 10,
             0
         );
 
         partida.evento =
-            `${jugador.nombre} encontró un terreno peligroso. ` +
-            "Perdió 10 de energía.";
+            `${jugador.nombre} encontró un terreno peligroso. ` + "Perdió 10 de energía.";
     }
-
-    partida.turno =
-        partida.turno === 1 ? 2 : 1;
-
+    partida.turno = partida.turno === 1 ? 2 : 1;
     return partida.evento;
 }
 
@@ -205,7 +158,6 @@ export function prepararseJugador(
     partida: Partida,
     jugadorId: number
 ): string {
-
     const jugador = partida.jugadores.find(
         (jugador) => jugador.id === jugadorId
     );
@@ -226,20 +178,11 @@ export function prepararseJugador(
         jugador.energia + 15,
         50
     );
-
-    jugador.suministros =
-        jugador.suministros - 5;
-
-    jugador.puntos =
-        jugador.puntos + 2;
-
-    partida.evento =
-        `${jugador.nombre} se preparó para continuar la expedición. ` +
+    jugador.suministros = jugador.suministros - 5;
+    jugador.puntos = jugador.puntos + 2;
+    partida.evento = `${jugador.nombre} se preparó para continuar la expedición. ` +
         "Ganó energía y 2 puntos.";
-
-    partida.turno =
-        partida.turno === 1 ? 2 : 1;
-
+    partida.turno = partida.turno === 1 ? 2 : 1;
     return partida.evento;
 }
 
@@ -247,7 +190,6 @@ export function bloquearJugador(
     partida: Partida,
     jugadorId: number
 ): string {
-
     const jugador = partida.jugadores.find(
         (jugador) => jugador.id === jugadorId
     );
@@ -267,28 +209,14 @@ export function bloquearJugador(
     if (jugador.suministros < 10) {
         return "No tienes suficientes suministros";
     }
-
-    jugador.energia =
-        jugador.energia - 20;
-
-    jugador.suministros =
-        jugador.suministros - 10;
-
-    jugador.puntos =
-        jugador.puntos + 5;
-
-    const jugadorObjetivo =
-        jugadorId === 1 ? 2 : 1;
-
-    partida.jugadorBloqueado =
-        jugadorObjetivo;
-
+    jugador.energia = jugador.energia - 20;
+    jugador.suministros = jugador.suministros - 10;
+    jugador.puntos = jugador.puntos + 5;
+    const jugadorObjetivo = jugadorId === 1 ? 2 : 1;
+    partida.jugadorBloqueado = jugadorObjetivo;
     partida.evento =
         `${jugador.nombre} bloqueó al Jugador ` +
         `${jugadorObjetivo}.`;
-
-    partida.turno =
-        partida.turno === 1 ? 2 : 1;
-
+    partida.turno = partida.turno === 1 ? 2 : 1;
     return partida.evento;
 }

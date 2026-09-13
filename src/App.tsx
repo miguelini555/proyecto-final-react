@@ -161,7 +161,6 @@ function App() {
         );
     }
 
-    
     if (pantalla === "inicio") {
         return (
             <div className="pantalla-inicio">
@@ -292,7 +291,6 @@ function App() {
                                 jugadas.
                             </p>
                         ) : (
-
                             <div className="lista-historial-resultado">
                                 {historial.map(
                                     (
@@ -330,7 +328,6 @@ function App() {
                                         </div>
                                     )
                                 )}
-
                             </div>
                         )}
                     </section>
@@ -582,7 +579,6 @@ function App() {
                                                             ? "🐻"
                                                             : "🐯"}
                                                     </span>
-
                                                 ) : null
                                         )}
                                         <div className="punto-estacion">
@@ -705,9 +701,7 @@ function App() {
                 <div className="evento-icono">
                     📢
                 </div>
-
                 <div>
-
                     <span>
                         EVENTO DE LA EXPEDICIÓN
                     </span>
@@ -721,7 +715,6 @@ function App() {
                         <p className="mensaje-jugada">
                             🎲 {mensaje}
                         </p>
-
                     )}
                 </div>
             </section>
