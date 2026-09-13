@@ -1,122 +1,292 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+import type { Jugador } from "./tipos";
+
+const estaciones = [
+    "Moscú",
+    "Nizhni Nóvgorod",
+    "Kazán",
+    "Ekaterimburgo",
+    "Omsk",
+    "Novosibirsk",
+    "Krasnoyarsk",
+    "Irkutsk",
+    "Ulan-Udé",
+    "Vladivostok"
+];
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [pantalla, setPantalla] = useState("inicio");
 
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    const [jugadores, setJugadores] = useState<Jugador[]>([
+        {
+            id: 1,
+            nombre: "Jugador 1",
+            posicion: 0,
+            combustible: 100,
+            suministros: 50,
+            energia: 50,
+            puntos: 0
+        },
+        {
+            id: 2,
+            nombre: "Jugador 2",
+            posicion: 0,
+            combustible: 100,
+            suministros: 50,
+            energia: 50,
+            puntos: 0
+        }
+    ]);
 
-      <div className="ticks"></div>
+    const [turno, setTurno] = useState(1);
+    const [jugadorBloqueado, setJugadorBloqueado] = useState(0);
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+    function avanzar() {
+        setJugadores((jugadoresActuales) =>
+            jugadoresActuales.map((jugador) => {
+                if (jugador.id === turno) {
+                    if (jugador.id === jugadorBloqueado) {
+                        return jugador;
+                    }
+                    if (jugador.combustible < 10) {
+                        return jugador;
+                    }
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+                    if (jugador.suministros < 5) {
+                        return jugador;
+                    }
+
+                    if (jugador.posicion >= estaciones.length - 1) {
+                        return jugador;
+                    }
+
+                    return {
+                        ...jugador,
+                        posicion: jugador.posicion + 1,
+                        combustible: jugador.combustible - 10,
+                        suministros: jugador.suministros - 5,
+                        puntos: jugador.puntos + 5
+                    };
+                }
+
+                return jugador;
+            })
+        );
+
+        setTurno(turno === 1 ? 2 : 1);
+    }
+
+    function explorar() {
+      setJugadores((jugadoresActuales) =>
+          jugadoresActuales.map((jugador) => {
+              if (jugador.id === turno) {
+
+                  if (jugador.energia < 5) {
+                      return jugador;
+                  }
+
+                  return {
+                      ...jugador,
+                      energia: jugador.energia - 5,
+                      suministros: jugador.suministros + 15,
+                      combustible: jugador.combustible + 10
+                  };
+              }
+
+              return jugador;
+          })
+      );
+
+      setTurno(turno === 1 ? 2 : 1);
+    }
+
+    function prepararse() {
+      setJugadores((jugadoresActuales) =>
+          jugadoresActuales.map((jugador) => {
+              if (jugador.id === turno) {
+
+                  if (jugador.suministros < 5) {
+                      return jugador;
+                  }
+
+                  return {
+                      ...jugador,
+                      energia: Math.min(jugador.energia + 15, 50),
+                      suministros: jugador.suministros - 5,
+                      puntos: jugador.puntos + 2
+                  };
+              }
+
+              return jugador;
+          })
+      );
+
+      setTurno(turno === 1 ? 2 : 1);
+    }
+
+    function bloquear() {
+      setJugadores((jugadoresActuales) =>
+          jugadoresActuales.map((jugador) => {
+              if (jugador.id === turno) {
+
+                  if (jugador.energia < 20) {
+                      return jugador;
+                  }
+
+                  if (jugador.suministros < 10) {
+                      return jugador;
+                  }
+
+                  return {
+                      ...jugador,
+                      energia: jugador.energia - 20,
+                      suministros: jugador.suministros - 10,
+                      puntos: jugador.puntos + 5
+                  };
+              }
+
+              return jugador;
+          })
+      );
+
+      setJugadorBloqueado(turno === 1 ? 2 : 1);
+
+      setTurno(turno === 1 ? 2 : 1);
+    }
+
+    if (pantalla === "inicio") {
+        return (
+            <div className="pantalla-inicio">
+                <div className="contenido-inicio">
+                    <h1>Expedición Transiberiana</h1>
+
+                    <p>
+                        Una aventura ferroviaria desde Moscú hasta Vladivostok.
+                    </p>
+
+                    <button onClick={() => setPantalla("juego")}>
+                        INICIAR EXPEDICIÓN
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="pantalla-juego">
+
+            <header className="encabezado-juego">
+                <h1>Expedición Transiberiana</h1>
+                <p>De Moscú a Vladivostok</p>
+            </header>
+
+            <main className="tablero">
+
+                <section className="panel-jugadores">
+
+                    {jugadores.map((jugador) => (
+                        <div className="panel-jugador" key={jugador.id}>
+
+                            <h2>{jugador.nombre}</h2>
+
+                            <p>
+                                Estación: {estaciones[jugador.posicion]}
+                            </p>
+
+                            <p>
+                                Combustible: {jugador.combustible}
+                            </p>
+
+                            <p>
+                                Suministros: {jugador.suministros}
+                            </p>
+
+                            <p>
+                                Energía: {jugador.energia}
+                            </p>
+
+                            <p>
+                                Puntos: {jugador.puntos}
+                            </p>
+
+                        </div>
+                    ))}
+
+                </section>
+
+                <section className="zona-ruta">
+
+                    <h2>Ruta Transiberiana</h2>
+
+                    <div className="ruta">
+
+                        {estaciones.map((estacion, indice) => (
+                            <div className="estacion" key={estacion}>
+
+                                <div className="estacion-punto">
+                                    {jugadores.map((jugador) =>
+                                        jugador.posicion === indice ? (
+                                            <span key={jugador.id}>
+                                                {jugador.id === 1 ? "🔴" : "🔵"}
+                                            </span>
+                                        ) : null
+                                    )}
+                                </div>
+
+                                <div className="estacion-nombre">
+                                    {indice + 1}. {estacion}
+                                </div>
+
+                            </div>
+                        ))}
+
+                    </div>
+
+                </section>
+
+            </main>
+
+            <section className="panel-turno">
+
+                <h2>
+                    Turno del Jugador {turno}
+                </h2>
+
+                <div className="acciones">
+
+                    <button onClick={avanzar}>
+                        AVANZAR
+                    </button>
+
+                    <button onClick={explorar}>
+                        EXPLORAR
+                    </button>
+
+                    <button onClick={prepararse}>
+                        PREPARARSE
+                    </button>
+
+                    <button onClick={bloquear}>
+                        BLOQUEAR
+                    </button>
+
+                </div>
+
+            </section>
+
+            <section className="panel-evento">
+
+                <h2>Evento</h2>
+
+                <p>
+                    La expedición está esperando su próxima decisión.
+                </p>
+
+            </section>
+
+        </div>
+    );
 }
 
-export default App
+export default App;
