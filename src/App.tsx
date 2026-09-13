@@ -2,6 +2,23 @@ import { useState } from "react";
 import "./App.css";
 import type { Jugador } from "./tipos";
 
+type Jugada = {
+    jugadorId: number;
+    accion: string;
+    mensaje: string;
+};
+
+type Partida = {
+    id: string;
+    jugadores: Jugador[];
+    turno: number;
+    estado: string;
+    ganador: number | null;
+    evento: string;
+    jugadorBloqueado: number;
+    historial: Jugada[];
+};
+
 const estaciones = [
     "Moscú",
     "Nizhni Nóvgorod",
@@ -16,159 +33,288 @@ const estaciones = [
 ];
 
 function App() {
+
     const [pantalla, setPantalla] = useState("inicio");
 
-    const [jugadores, setJugadores] = useState<Jugador[]>([
-        {
-            id: 1,
-            nombre: "Jugador 1",
-            posicion: 0,
-            combustible: 100,
-            suministros: 50,
-            energia: 50,
-            puntos: 0
-        },
-        {
-            id: 2,
-            nombre: "Jugador 2",
-            posicion: 0,
-            combustible: 100,
-            suministros: 50,
-            energia: 50,
-            puntos: 0
-        }
-    ]);
+    const [jugadores, setJugadores] = useState<Jugador[]>([]);
 
     const [turno, setTurno] = useState(1);
-    const [jugadorBloqueado, setJugadorBloqueado] = useState(0);
 
-    function avanzar() {
-        setJugadores((jugadoresActuales) =>
-            jugadoresActuales.map((jugador) => {
-                if (jugador.id === turno) {
-                    if (jugador.id === jugadorBloqueado) {
-                        return jugador;
-                    }
-                    if (jugador.combustible < 10) {
-                        return jugador;
-                    }
+    const [partida, setPartida] = useState<Partida | null>(null);
 
-                    if (jugador.suministros < 5) {
-                        return jugador;
-                    }
+    const [mensaje, setMensaje] = useState("");
 
-                    if (jugador.posicion >= estaciones.length - 1) {
-                        return jugador;
-                    }
+    const [historial, setHistorial] = useState<Jugada[]>([]);
 
-                    return {
-                        ...jugador,
-                        posicion: jugador.posicion + 1,
-                        combustible: jugador.combustible - 10,
-                        suministros: jugador.suministros - 5,
-                        puntos: jugador.puntos + 5
-                    };
-                }
+    async function cargarHistorial(id: string) {
 
-                return jugador;
-            })
+        const respuesta = await fetch(
+            `/api/partidas/${id}/historial`
         );
 
-        setTurno(turno === 1 ? 2 : 1);
+        const datos = await respuesta.json();
+
+        if (datos.correcto) {
+            setHistorial(datos.historial);
+        }
     }
 
-    function explorar() {
-      setJugadores((jugadoresActuales) =>
-          jugadoresActuales.map((jugador) => {
-              if (jugador.id === turno) {
+    async function iniciarPartida() {
 
-                  if (jugador.energia < 5) {
-                      return jugador;
-                  }
+        const respuesta = await fetch("/api/partidas", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({})
+        });
 
-                  return {
-                      ...jugador,
-                      energia: jugador.energia - 5,
-                      suministros: jugador.suministros + 15,
-                      combustible: jugador.combustible + 10
-                  };
-              }
+        const datos = await respuesta.json();
 
-              return jugador;
-          })
-      );
+        setPartida(datos.partida);
 
-      setTurno(turno === 1 ? 2 : 1);
+        setJugadores(
+            datos.partida.jugadores
+        );
+
+        setTurno(
+            datos.partida.turno
+        );
+
+        setMensaje("");
+
+        setHistorial([]);
+
+        setPantalla("juego");
     }
 
-    function prepararse() {
-      setJugadores((jugadoresActuales) =>
-          jugadoresActuales.map((jugador) => {
-              if (jugador.id === turno) {
+    async function realizarJugada(accion: string) {
 
-                  if (jugador.suministros < 5) {
-                      return jugador;
-                  }
+        if (partida === null) {
+            return;
+        }
 
-                  return {
-                      ...jugador,
-                      energia: Math.min(jugador.energia + 15, 50),
-                      suministros: jugador.suministros - 5,
-                      puntos: jugador.puntos + 2
-                  };
-              }
+        const respuesta = await fetch(
+            `/api/partidas/${partida.id}/jugada`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    jugadorId: turno,
+                    accion: accion
+                })
+            }
+        );
 
-              return jugador;
-          })
-      );
+        const datos = await respuesta.json();
 
-      setTurno(turno === 1 ? 2 : 1);
+        setMensaje(
+            datos.mensaje
+        );
+
+        if (!datos.correcto) {
+
+            if (datos.partida) {
+
+                setPartida(
+                    datos.partida
+                );
+
+                setJugadores(
+                    datos.partida.jugadores
+                );
+
+                setTurno(
+                    datos.partida.turno
+                );
+            }
+
+            return;
+        }
+
+        setPartida(
+            datos.partida
+        );
+
+        setJugadores(
+            datos.partida.jugadores
+        );
+
+        setTurno(
+            datos.partida.turno
+        );
+
+        await cargarHistorial(
+            datos.partida.id
+        );
+
+        if (
+            datos.partida.estado === "terminada"
+        ) {
+
+            setPantalla("resultado");
+        }
     }
 
-    function bloquear() {
-      setJugadores((jugadoresActuales) =>
-          jugadoresActuales.map((jugador) => {
-              if (jugador.id === turno) {
+    async function avanzar() {
+        await realizarJugada("avanzar");
+    }
 
-                  if (jugador.energia < 20) {
-                      return jugador;
-                  }
+    async function explorar() {
+        await realizarJugada("explorar");
+    }
 
-                  if (jugador.suministros < 10) {
-                      return jugador;
-                  }
+    async function prepararse() {
+        await realizarJugada("prepararse");
+    }
 
-                  return {
-                      ...jugador,
-                      energia: jugador.energia - 20,
-                      suministros: jugador.suministros - 10,
-                      puntos: jugador.puntos + 5
-                  };
-              }
-
-              return jugador;
-          })
-      );
-
-      setJugadorBloqueado(turno === 1 ? 2 : 1);
-
-      setTurno(turno === 1 ? 2 : 1);
+    async function bloquear() {
+        await realizarJugada("bloquear");
     }
 
     if (pantalla === "inicio") {
+
         return (
             <div className="pantalla-inicio">
+
                 <div className="contenido-inicio">
-                    <h1>Expedición Transiberiana</h1>
+
+                    <h1>
+                        Expedición Transiberiana
+                    </h1>
 
                     <p>
-                        Una aventura ferroviaria desde Moscú hasta Vladivostok.
+                        Una aventura ferroviaria desde
+                        Moscú hasta Vladivostok.
                     </p>
 
-                    <button onClick={() => setPantalla("juego")}>
+                    <button onClick={iniciarPartida}>
                         INICIAR EXPEDICIÓN
                     </button>
+
                 </div>
+
+            </div>
+        );
+    }
+
+    if (
+        pantalla === "resultado" &&
+        partida !== null
+    ) {
+
+        const ganador = jugadores.find(
+            (jugador) =>
+                jugador.id === partida.ganador
+        );
+
+        return (
+            <div className="pantalla-resultado">
+
+                <div className="contenido-resultado">
+
+                    <h1>
+                        ¡EXPEDICIÓN COMPLETADA!
+                    </h1>
+
+                    <h2>
+                        🏆 {ganador?.nombre} ha ganado
+                    </h2>
+
+                    <p>
+                        El ganador llegó hasta Vladivostok.
+                    </p>
+
+                    {ganador && (
+                        <div className="resultado-jugador">
+
+                            <p>
+                                Estación:{" "}
+                                {estaciones[ganador.posicion]}
+                            </p>
+
+                            <p>
+                                Puntos:{" "}
+                                {ganador.puntos}
+                            </p>
+
+                            <p>
+                                Combustible:{" "}
+                                {ganador.combustible}
+                            </p>
+
+                            <p>
+                                Suministros:{" "}
+                                {ganador.suministros}
+                            </p>
+
+                            <p>
+                                Energía:{" "}
+                                {ganador.energia}
+                            </p>
+
+                        </div>
+                    )}
+
+                    <p className="mensaje-final">
+                        {partida.evento}
+                    </p>
+
+                    <section className="historial-resultado">
+
+                        <h2>
+                            Historial de jugadas
+                        </h2>
+
+                        {historial.length === 0 ? (
+
+                            <p>
+                                No se registraron jugadas.
+                            </p>
+
+                        ) : (
+
+                            <div className="lista-historial-resultado">
+
+                                {historial.map(
+                                    (jugada, indice) => (
+
+                                        <div
+                                            className="jugada-resultado"
+                                            key={indice}
+                                        >
+
+                                            <strong>
+                                                Jugador{" "}
+                                                {jugada.jugadorId}
+                                            </strong>
+
+                                            <span>
+                                                {" → "}
+                                                {jugada.accion.toUpperCase()}
+                                            </span>
+
+                                            <p>
+                                                {jugada.mensaje}
+                                            </p>
+
+                                        </div>
+                                    )
+                                )}
+
+                            </div>
+                        )}
+
+                    </section>
+
+                    <button onClick={iniciarPartida}>
+                        NUEVA EXPEDICIÓN
+                    </button>
+
+                </div>
+
             </div>
         );
     }
@@ -177,8 +323,15 @@ function App() {
         <div className="pantalla-juego">
 
             <header className="encabezado-juego">
-                <h1>Expedición Transiberiana</h1>
-                <p>De Moscú a Vladivostok</p>
+
+                <h1>
+                    Expedición Transiberiana
+                </h1>
+
+                <p>
+                    De Moscú a Vladivostok
+                </p>
+
             </header>
 
             <main className="tablero">
@@ -186,60 +339,95 @@ function App() {
                 <section className="panel-jugadores">
 
                     {jugadores.map((jugador) => (
-                        <div className="panel-jugador" key={jugador.id}>
 
-                            <h2>{jugador.nombre}</h2>
+                        <div
+                            className="panel-jugador"
+                            key={jugador.id}
+                        >
+
+                            <h2>
+                                {jugador.nombre}
+                            </h2>
 
                             <p>
-                                Estación: {estaciones[jugador.posicion]}
+                                Estación:{" "}
+                                {estaciones[jugador.posicion]}
                             </p>
 
                             <p>
-                                Combustible: {jugador.combustible}
+                                Combustible:{" "}
+                                {jugador.combustible}
                             </p>
 
                             <p>
-                                Suministros: {jugador.suministros}
+                                Suministros:{" "}
+                                {jugador.suministros}
                             </p>
 
                             <p>
-                                Energía: {jugador.energia}
+                                Energía:{" "}
+                                {jugador.energia}
                             </p>
 
                             <p>
-                                Puntos: {jugador.puntos}
+                                Puntos:{" "}
+                                {jugador.puntos}
                             </p>
 
                         </div>
+
                     ))}
 
                 </section>
 
                 <section className="zona-ruta">
 
-                    <h2>Ruta Transiberiana</h2>
+                    <h2>
+                        Ruta Transiberiana
+                    </h2>
 
                     <div className="ruta">
 
-                        {estaciones.map((estacion, indice) => (
-                            <div className="estacion" key={estacion}>
+                        {estaciones.map(
+                            (estacion, indice) => (
 
-                                <div className="estacion-punto">
-                                    {jugadores.map((jugador) =>
-                                        jugador.posicion === indice ? (
-                                            <span key={jugador.id}>
-                                                {jugador.id === 1 ? "🔴" : "🔵"}
-                                            </span>
-                                        ) : null
-                                    )}
+                                <div
+                                    className="estacion"
+                                    key={estacion}
+                                >
+
+                                    <div className="estacion-punto">
+
+                                        {jugadores.map(
+                                            (jugador) =>
+                                                jugador.posicion ===
+                                                indice ? (
+
+                                                    <span
+                                                        key={
+                                                            jugador.id
+                                                        }
+                                                    >
+                                                        {jugador.id === 1
+                                                            ? "🔴"
+                                                            : "🔵"}
+                                                    </span>
+
+                                                ) : null
+                                        )}
+
+                                    </div>
+
+                                    <div className="estacion-nombre">
+
+                                        {indice + 1}.{" "}
+                                        {estacion}
+
+                                    </div>
+
                                 </div>
-
-                                <div className="estacion-nombre">
-                                    {indice + 1}. {estacion}
-                                </div>
-
-                            </div>
-                        ))}
+                            )
+                        )}
 
                     </div>
 
@@ -277,11 +465,19 @@ function App() {
 
             <section className="panel-evento">
 
-                <h2>Evento</h2>
+                <h2>
+                    Evento
+                </h2>
 
                 <p>
-                    La expedición está esperando su próxima decisión.
+                    {partida?.evento}
                 </p>
+
+                {mensaje && (
+                    <p className="mensaje-jugada">
+                        {mensaje}
+                    </p>
+                )}
 
             </section>
 

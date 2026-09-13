@@ -172,3 +172,88 @@
 .panel-evento h2 {
     margin-top: 0;
 }
+
+.pantalla-resultado {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    background: #f1f1f1;
+}
+
+.contenido-resultado {
+    width: 100%;
+    max-width: 700px;
+    padding: 50px;
+    text-align: center;
+    background: white;
+    border-radius: 20px;
+}
+
+.contenido-resultado h1 {
+    margin-bottom: 20px;
+}
+
+.contenido-resultado h2 {
+    margin-bottom: 20px;
+}
+
+.resultado-jugador {
+    margin: 25px auto;
+    padding: 20px;
+    max-width: 400px;
+    text-align: left;
+    border-radius: 12px;
+    background: #eeeeee;
+}
+
+.mensaje-final {
+    margin: 25px 0;
+    font-weight: bold;
+}
+
+.mensaje-jugada {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.historial-resultado {
+    margin: 30px 0;
+    padding: 25px;
+    background: #eeeeee;
+    border-radius: 15px;
+    text-align: left;
+}
+
+.historial-resultado h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.lista-historial-resultado {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.jugada-resultado {
+    padding: 12px;
+    background: white;
+    border-radius: 10px;
+}
+
+.jugada-resultado strong {
+    margin-right: 5px;
+}
+
+.jugada-resultado span {
+    font-weight: bold;
+}
+
+.jugada-resultado p {
+    margin: 8px 0 0 0;
+}
