@@ -1,5 +1,4 @@
 # Investigación técnica
-
 ## 1. Introducción
 
 Durante el desarrollo de **Expedición Transiberiana** se investigaron diferentes aspectos técnicos necesarios para completar el proyecto.
