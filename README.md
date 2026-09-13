@@ -1,4 +1,4 @@
-# 🚂 Expedición Transiberiana
+# Expedición Transiberiana
 
 ## Descripción
 
@@ -9,20 +9,20 @@ El proyecto utiliza una arquitectura **Frontend + Backend**, donde React se comu
 
 ---
 
-## 🎮 Objetivo del juego
+## Objetivo del juego
 El objetivo es llegar primero a **Vladivostok**, atravesando las diferentes estaciones de la ruta.
 
 Los jugadores deben administrar:
-- ⛽ Combustible
-- 🍱 Suministros
-- ⚡ Energía
-- ⭐ Puntos
+- Combustible
+- Suministros
+- Energía
+- Puntos
 Durante la partida pueden elegir diferentes acciones que afectan sus recursos, posición y puntuación.
 También existen eventos variables durante la exploración y la posibilidad de bloquear temporalmente al jugador contrario.
 
 ---
 
-## 🗺️ Ruta del juego
+## Ruta del juego
 
 La expedición está formada por las siguientes estaciones:
 1. Moscú
@@ -39,25 +39,25 @@ El jugador que alcanza Vladivostok completa la expedición y gana la partida.
 
 ---
 
-## ⚔️ Acciones disponibles
+## Acciones disponibles
 
-### 🚂 Avanzar
+### Avanzar
 Permite avanzar una estación.
 
 **Costo:**
-- ⛽ 10 de combustible
-- 🍱 5 de suministros
+- 10 de combustible
+- 5 de suministros
 
 **Recompensa:**
-- ⭐ 5 puntos
+- 5 puntos
 
 ---
 
-### 🔎 Explorar
+### Explorar
 Permite explorar la zona sin avanzar.
 
 **Costo:**
-- ⚡ 5 de energía
+- 5 de energía
 El resultado depende de un evento aleatorio generado en el backend.
 
 Puede producir:
@@ -67,33 +67,33 @@ Puede producir:
 
 ---
 
-### ⛺ Prepararse
+### Prepararse
 Permite recuperar energía.
 
 **Costo:**
-- 🍱 5 suministros
+- 5 suministros
 
 **Recompensa:*
-- ⚡ Hasta 15 de energía
-- ⭐ 2 puntos
+- Hasta 15 de energía
+- 2 puntos
 La energía máxima es de 50.
 
 ---
 
-### 🚧 Bloquear
+### Bloquear
 Permite bloquear temporalmente al jugador contrario.
 
 **Costo:**
-- ⚡ 20 de energía
-- 🍱 10 suministros
+- 20 de energía
+- 10 suministros
 
 **Recompensa:**
-- ⭐ 5 puntos
+- 5 puntos
 El jugador bloqueado pierde su siguiente turno si intenta avanzar.
 
 ---
 
-## 🧠 Arquitectura
+## Arquitectura
 El proyecto está dividido en un frontend desarrollado con React y un backend desarrollado con Express.
 
 ```text
@@ -126,7 +126,7 @@ Esto permite que las validaciones importantes no dependan únicamente del navega
 
 ---
 
-## 🛠️ Tecnologías utilizadas
+## Tecnologías utilizadas
 
 ### Frontend
 - React
@@ -151,7 +151,7 @@ Esto permite que las validaciones importantes no dependan únicamente del navega
 
 ---
 
-## 📁 Estructura del proyecto
+## Estructura del proyecto
 ```text
 proyecto-final-react/
 │
@@ -199,7 +199,7 @@ proyecto-final-react/
 
 ---
 
-## 🔌 API
+## API
 El backend proporciona los siguientes endpoints:
 
 ### Crear una partida
@@ -251,7 +251,7 @@ El backend valida el turno, los recursos disponibles, el estado de la partida y 
 
 ---
 
-## 🌐 Comunicación Frontend - Backend
+## Comunicación Frontend - Backend
 La comunicación entre React y Express se realiza mediante `fetch`.
 
 Ejemplo de creación de una partida:
@@ -289,7 +289,7 @@ El backend devuelve el nuevo estado de la partida en formato JSON.
 
 ---
 
-## 💻 Instalación
+## Instalación
 
 ### Requisitos
 Se requiere tener instalado:
@@ -319,7 +319,7 @@ cd ..
 
 ---
 
-## ▶️ Ejecución en desarrollo
+## Ejecución en desarrollo
 
 ### Frontend
 
@@ -339,7 +339,7 @@ El servidor Express se ejecuta en el puerto 3000 durante el desarrollo.
 
 ---
 
-## 🏗️ Compilación
+## Compilación
 Para compilar frontend y backend:
 ```bash
 npm run build:all
@@ -356,7 +356,7 @@ npm run build:backend
 
 ---
 
-## 🚀 Ejecución en producción
+## Ejecución en producción
 Después de realizar la compilación:
 
 ```bash
@@ -367,7 +367,7 @@ El puerto utilizado por el servidor se obtiene mediante la variable de entorno `
 
 ---
 
-## 🧪 Pruebas E2E
+## Pruebas E2E
 Las pruebas End-to-End fueron desarrolladas utilizando **Playwright**.
 Las pruebas verifican el funcionamiento completo de la aplicación desde la perspectiva del usuario y también comprueban la comunicación con el backend.
 Actualmente existen **9 pruebas E2E**:
@@ -384,7 +384,7 @@ Actualmente existen **9 pruebas E2E**:
 
 ---
 
-## ▶️ Ejecutar pruebas E2E
+## Ejecutar pruebas E2E
 Para ejecutar las pruebas:
 ```bash
 npm run test:e2e
@@ -403,7 +403,7 @@ npx playwright show-report
 
 ---
 
-## 🧪 Validación del backend
+## Validación del backend
 Uno de los casos E2E verifica directamente una regla importante del backend.
 Se intenta realizar una jugada como el Jugador 2 cuando el turno pertenece al Jugador 1.
 
@@ -423,7 +423,7 @@ Esto demuestra que las reglas importantes del juego son validadas en el servidor
 
 ---
 
-## 🔎 Linting
+## Linting
 El proyecto utiliza ESLint para comprobar la calidad del código.
 
 ### Frontend
@@ -439,7 +439,7 @@ npm run lint
 
 ---
 
-## ⚙️ GitHub Actions
+## GitHub Actions
 El proyecto utiliza GitHub Actions para automatizar diferentes procesos.
 
 ### Lint
@@ -469,7 +469,7 @@ Archivo:
 
 ---
 
-## 🌍 Despliegue
+## Despliegue
 La aplicación está publicada utilizando Render.
 
 ### Aplicación publicada
@@ -490,7 +490,7 @@ El backend utiliza el puerto proporcionado por la variable de entorno `PORT` de 
 
 ---
 
-## 📚 Documentación
+## Documentación
 
 La documentación adicional del proyecto se encuentra en la carpeta `docs`.
 
@@ -512,7 +512,7 @@ Los documentos contienen información adicional sobre:
 
 ---
 
-## ⚠️ Consideraciones y limitaciones
+## Consideraciones y limitaciones
 
 La aplicación utiliza almacenamiento en memoria para las partidas.
 Esto significa que las partidas no se mantienen permanentemente después de reiniciar el servidor.
@@ -528,7 +528,7 @@ El proyecto está orientado a demostrar:
 
 ---
 
-## 👨‍💻 Proyecto académico
+## Proyecto académico
 **Proyecto:** Expedición Transiberiana
 **Materia:** Certificación
 **Tecnologías principales:** React, TypeScript, Express, Playwright y GitHub Actions.
